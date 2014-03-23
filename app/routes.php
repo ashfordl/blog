@@ -13,5 +13,21 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return Redirect::route('blog');
 });
+
+Route::get('blog', array(
+    'as' => 'blog',
+    'uses' => 'BlogController@getIndex'
+    ));
+
+Route::get('blog/list', array (
+    'as' => 'bloglist',
+    'uses' => 'BlogController@getList'
+    ));
+
+Route::get('blog/{id}/{title?}', array(
+    'as' => 'blogpost',
+    'uses' => 'BlogController@getPost'
+    ))
+    ->where('id', '[0-9]+');
