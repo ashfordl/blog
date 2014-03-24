@@ -22,8 +22,10 @@ class BlogController extends BaseController {
 
     public function getPost($id, $title="")
     {
-        // Dispaly post where id = $id
+        $post = Blogpost::find($id);
 
-        return View::make('blogpost');
+
+        return View::make('blogpost')
+                ->with('post', $post);
     }
 }

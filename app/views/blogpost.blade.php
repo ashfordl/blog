@@ -5,5 +5,5 @@
 @stop
 
 @section('body')
-    <h3>Blog post</h3>
+    @include('templates.post')
 @stop
