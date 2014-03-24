@@ -1,7 +1,8 @@
 @if (isset($post))
 <h3>Blog post</h3>
 <h1>{{{ $post->title }}}</h1>
-<p>{{ $post->content }}</p>
+{{-- Format with paragraph tags, and escape and html entities (eg angle brackets) --}}
+<p>{{ str_replace(array("\n","\r\n"), "</p><p>", e($post->content)) }}</p>
 <p>{{{ $post->tags }}}</p>
 @else
 <h3>Blog post</h3>

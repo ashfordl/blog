@@ -15,9 +15,13 @@ class BlogController extends BaseController {
 
     public function getList()
     {
-        // Display index of blog posts
+        $posts = Blogpost::where('deleted', '=', 0)
+                        ->orderBy('created_at')
+                        ->get()
+                        ->reverse();
 
-        return View::make('bloglist');
+        return View::make('bloglist')
+                ->with('posts', $posts);
     }
 
     public function getPost($id, $title="")
