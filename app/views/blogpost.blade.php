@@ -1,7 +1,7 @@
 @extends('templates.base')
 
 @section('title')
-    Post | Blog
+    Blogpost | Blog
 @stop
 
 @section('body')
