@@ -4,8 +4,8 @@ class UserController extends BaseController {
 
     public function __construct()
     {
-        $this->beforeFilter('auth', array('except' => array('getLogin', 'postLogin', 'getRegister')));
-        $this->beforeFilter('guest', array('only' => array('getLogin', 'postLogin', 'getRegister')));
+        $this->beforeFilter('auth', array('except' => array('getLogin', 'postLogin', 'getRegister', 'postRegister')));
+        $this->beforeFilter('guest', array('only' => array('getLogin', 'postLogin', 'getRegister', 'postRegister')));
         $this->beforeFilter('csrf', array('on' => 'post'));
     }
 
@@ -20,7 +20,7 @@ class UserController extends BaseController {
     {
         $data = Input::all();
         $rules = array(
-            'email'     => 'email|required',
+            'email'     => 'max:255|email|required',
             'password'  => 'min:5|required'
             );
         $validator = Validator::make($data, $rules);
@@ -28,7 +28,9 @@ class UserController extends BaseController {
         if($validator->fails())
         {
             // Validation fails, do not query database
-            return Redirect::route('login')->withErrors($validator);
+            return Redirect::route('login')
+                        ->with('login_error', true)
+                        ->withInput();
         }
         
         // Validation passes, proceed to query database
@@ -39,7 +41,9 @@ class UserController extends BaseController {
         }
         else   // Auth failed
         {
-            return Redirect::route('login')->with('login_error', true);
+            return Redirect::route('login')
+                        ->with('login_error', true)
+                        ->withInput();
         }
     }
 
@@ -51,11 +55,38 @@ class UserController extends BaseController {
 
     public function getRegister()
     {   
-        return View::make('register');
+        return View::make('register')
+                    ->with('nologin', true);
     }
 
     public function postRegister()
     {   
-        return View::make('register');
+        $data = Input::all();
+        $rules = array(
+            'name'      => 'max:255|required|regex:/^[a-zA-Z0-9\- _]*$/',
+            'email'     => 'max:255|email|required|confirmed|unique:users,email',
+            'password'  => 'min:5|required|confirmed'
+            );
+        $validator = Validator::make($data, $rules);
+
+        if($validator->fails())
+        {
+            // Validation fails, show errors
+            return Redirect::route('register')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        // Create a new user
+        $user = new User();
+        $user->display_name = Input::get('name');
+        $user->email = Input::get('email');
+        $user->password = Hash::make(Input::get('password'));
+        $user->save();
+
+        // Log him in
+        Auth::login($user);
+
+        return Redirect::route('blog');
     }
 }

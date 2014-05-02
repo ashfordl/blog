@@ -7,8 +7,8 @@
 @section('body')
     {{ Form::open(array('route' => 'p_register')) }}
 
-        @if (isset($reg_error))
-            <span class="error">{{ $reg_error->first() }}</span>
+        @if (isset($errors))
+            <span class="error">{{ $errors->first() }}</span>
         @endif
 
         {{-- NAME FIELD --}}
