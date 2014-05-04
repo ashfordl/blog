@@ -4,15 +4,15 @@ class UserController extends BaseController {
 
     public function __construct()
     {
-        $this->beforeFilter('auth', array('except' => array('getLogin', 'postLogin', 'getRegister', 'postRegister')));
-        $this->beforeFilter('guest', array('only' => array('getLogin', 'postLogin', 'getRegister', 'postRegister')));
+        $exceptions = array('getLogin', 'postLogin', 'getRegister', 'postRegister');
+        $this->beforeFilter('auth', array('except' => $exceptions));
+        $this->beforeFilter('guest', array('only'  => $exceptions));
         $this->beforeFilter('csrf', array('on' => 'post'));
     }
 
     public function getLogin()
     {
         return View::make('login')
-                    ->with('nologin', true)
                     ->with('login_error', Session::get('login_error'));
     }
 
@@ -55,8 +55,7 @@ class UserController extends BaseController {
 
     public function getRegister()
     {   
-        return View::make('register')
-                    ->with('nologin', true);
+        return View::make('register');
     }
 
     public function postRegister()
@@ -88,5 +87,18 @@ class UserController extends BaseController {
         Auth::login($user);
 
         return Redirect::route('blog');
+    }
+
+    public function getSettings()
+    {
+        return View::make('settings')
+                ->with('user', Auth::user());
+    }
+
+    public function postSettings()
+    {
+        // TODO: Implement
+
+        echo "hi";
     }
 }

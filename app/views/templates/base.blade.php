@@ -13,12 +13,12 @@
     </ul>
 
     {{-- Login Information --}}
-    @if (!isset($nologin))
+    @if (!isset($nologin) || !$nologin)
         @if (Auth::check())
-        {{ Auth::user()->display_name }}
-        <a href="{{ route('logout') }}">Logout</a>
+            <a href="{{ route('settings') }}">{{{ Auth::user()->display_name }}}</a>
+            <a href="{{ route('logout') }}">Logout</a>
         @else
-        <span><b>Not logged in</b> <a href="{{ route('login') }}">Log in</a> <a href="{{ route('register') }}">Register</a></span>
+            <span><b>Not logged in</b> <a href="{{ route('login') }}">Log in</a> <a href="{{ route('register') }}">Register</a></span>
         @endif
     @endif
 

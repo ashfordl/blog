@@ -5,6 +5,7 @@
 @stop
 
 @section('body')
+    <h3>Login</h3>
     {{ Form::open(array('route' => 'p_login')) }}
 
         @if (isset($login_error) && $login_error)

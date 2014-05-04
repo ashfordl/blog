@@ -57,3 +57,13 @@ Route::post('user/register', array(
     'as' => 'p_register',
     'uses' => 'UserController@postRegister'
     ));
+
+Route::get('user/settings', array(
+    'as' => 'settings',
+    'uses' => 'UserController@getSettings'
+    ));
+
+Route::post('user/settings', array(
+    'as' => 'p_settings',
+    'uses' => 'UserController@postSettings'
+    ));

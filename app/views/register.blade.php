@@ -5,6 +5,7 @@
 @stop
 
 @section('body')
+    <h3>Register</h3>
     {{ Form::open(array('route' => 'p_register')) }}
 
         @if (isset($errors))
