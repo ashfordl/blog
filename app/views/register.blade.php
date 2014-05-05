@@ -6,7 +6,7 @@
 
 @section('body')
     <h3>Register</h3>
-    {{ Form::open(array('route' => 'p_register')) }}
+    {{ Form::open(array('action' => 'UserController@postRegister')) }}
 
         @if (isset($errors))
             <span class="error">{{ $errors->first() }}</span>

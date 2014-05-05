@@ -15,10 +15,10 @@
     {{-- Login Information --}}
     @if (!isset($nologin) || !$nologin)
         @if (Auth::check())
-            <a href="{{ route('settings') }}">{{{ Auth::user()->display_name }}}</a>
-            <a href="{{ route('logout') }}">Logout</a>
+            <a href="{{ action('UserController@getSettings') }}">{{{ Auth::user()->display_name }}}</a>
+            <a href="{{ action('UserController@getLogout') }}">Logout</a>
         @else
-            <span><b>Not logged in</b> <a href="{{ route('login') }}">Log in</a> <a href="{{ route('register') }}">Register</a></span>
+            <span><b>Not logged in</b> <a href="{{ action('UserController@getLogin') }}">Log in</a> <a href="{{ action('UserController@getRegister') }}">Register</a></span>
         @endif
     @endif
 

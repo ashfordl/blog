@@ -6,10 +6,10 @@
 
 @section('body')
     <h3>Login</h3>
-    {{ Form::open(array('route' => 'p_login')) }}
+    {{ Form::open(array('action' => 'UserController@postLogin')) }}
 
         @if (isset($login_error) && $login_error)
-            <span class="error">Incorrect email or password. Please try again.  </span>
+            <span class="error">Incorrect email or password. Please try again.</span>
         @endif
 
         {{-- EMAIL FIELD --}}

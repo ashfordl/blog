@@ -32,38 +32,4 @@ Route::get('blog/{id}/{title?}', array(
     ))
     ->where('id', '[0-9]+');
 
-
-Route::get('user/login', array(
-    'as' => 'login',
-    'uses' => 'UserController@getLogin'
-    ));
-
-Route::post('user/login', array(
-    'as' => 'p_login',
-    'uses' => 'UserController@postLogin'
-    ));
-
-Route::get('user/logout', array(
-    'as' => 'logout',
-    'uses' => 'UserController@getLogout'
-    ));
-
-Route::get('user/register', array(
-    'as' => 'register',
-    'uses' => 'UserController@getRegister'
-    ));
-
-Route::post('user/register', array(
-    'as' => 'p_register',
-    'uses' => 'UserController@postRegister'
-    ));
-
-Route::get('user/settings', array(
-    'as' => 'settings',
-    'uses' => 'UserController@getSettings'
-    ));
-
-Route::post('user/settings', array(
-    'as' => 'p_settings',
-    'uses' => 'UserController@postSettings'
-    ));
+Route::controller('user', 'UserController');

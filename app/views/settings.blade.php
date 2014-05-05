@@ -6,7 +6,7 @@
 
 @section('body')
     <h3>Settings</h3>
-    {{ Form::open(array('route' => 'p_settings')) }}
+    {{ Form::open(array('action' => 'UserController@postSettings')) }}
 
         {{-- EMAIL FIELD --}}
         {{ Form::label('email', 'E-Mail') }}
