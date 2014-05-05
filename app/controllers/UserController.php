@@ -2,6 +2,11 @@
 
 class UserController extends BaseController {
 
+    /**
+     * Constructor defines filters for actions within this controller.
+     *
+     * Defined filters are CSRF (for POST requests), guest (only for login and register) and auth (for all except login and register).
+     */
     public function __construct()
     {
         $exceptions = array('getLogin', 'postLogin', 'getRegister', 'postRegister');
@@ -10,12 +15,22 @@ class UserController extends BaseController {
         $this->beforeFilter('csrf', array('on' => 'post'));
     }
 
+    /**
+     * Displays and returns the login view.
+     *
+     * @return View:login
+     */
     public function getLogin()
     {
         return View::make('login')
                     ->with('login_error', Session::get('login_error'));
     }
 
+    /**
+     * Validates and responds to POST requests to login
+     * 
+     * @return 302:blog | 302:login
+     */
     public function postLogin()
     {
         $data = Input::all();
@@ -28,7 +43,7 @@ class UserController extends BaseController {
         if($validator->fails())
         {
             // Validation fails, do not query database
-            return Redirect::route('login')
+            return Redirect::action('UserController@getLogin')
                         ->with('login_error', true)
                         ->withInput();
         }
@@ -39,25 +54,40 @@ class UserController extends BaseController {
         {
             return Redirect::route('blog');
         }
-        else   // Auth failed
+        else   // Auth failed somehow
         {
-            return Redirect::route('login')
+            return Redirect::action('UserController@getLogin')
                         ->with('login_error', true)
                         ->withInput();
         }
     }
 
+    /**
+     * Logs the user out
+     *
+     * @return 302:blog
+     */
     function getLogout()
     {
         Auth::logout();
         return Redirect::route('blog');
     }
 
+    /**
+     * Displays and returns the login view.
+     *
+     * @return View:register
+     */
     public function getRegister()
     {   
         return View::make('register');
     }
 
+    /**
+     * Validates and responds to POST requests to register
+     * 
+     * @return 302:blog | 302:register
+     */
     public function postRegister()
     {   
         $data = Input::all();
@@ -71,7 +101,7 @@ class UserController extends BaseController {
         if($validator->fails())
         {
             // Validation fails, show errors
-            return Redirect::route('register')
+            return Redirect::action('UserController@getRegister')
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -89,13 +119,47 @@ class UserController extends BaseController {
         return Redirect::route('blog');
     }
 
+    /**
+     * Displays and returns the settings view.
+     *
+     * @return View:settings
+     */
     public function getSettings()
     {
         return View::make('settings')
                 ->with('user', Auth::user());
     }
 
+    /**
+     * Validates and responds to POST requests to settings
+     * 
+     * @return 302:settings
+     */
     public function postSettings()
+    {
+        // TODO: Implement
+
+        echo "hi";
+    }
+
+    /**
+     * Validates and responds to POST requests to change the display name
+     * 
+     * @return JSON:response
+     */
+    public function postChangeUsername()
+    {
+        // TODO: Implement
+
+        echo "hi";
+    }
+
+    /**
+     * Validates and responds to POST requests to change the password
+     * 
+     * @return JSON:response
+     */
+    public function postChangePassword()
     {
         // TODO: Implement
 
