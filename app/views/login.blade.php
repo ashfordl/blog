@@ -8,7 +8,7 @@
     <h3>Login</h3>
     {{ Form::open(array('action' => 'UserController@postLogin')) }}
 
-        @if (isset($login_error) && $login_error)
+        @if(isset($login_error) && $login_error)
             <span class="error">Incorrect email or password. Please try again.</span>
         @endif
 

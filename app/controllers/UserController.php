@@ -1,6 +1,7 @@
 <?php
 
-class UserController extends BaseController {
+class UserController extends BaseController 
+{
 
     /**
      * Constructor defines filters for actions within this controller.
@@ -52,10 +53,12 @@ class UserController extends BaseController {
         if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password']), 
             (isset($data['permanent']) && $data['permanent']) ))
         {
+            // Login successful
             return Redirect::route('blog');
         }
-        else   // Auth failed somehow
+        else
         {
+            // Login unsuccessful
             return Redirect::action('UserController@getLogin')
                         ->with('login_error', true)
                         ->withInput();
@@ -92,7 +95,7 @@ class UserController extends BaseController {
     {   
         $data = Input::all();
         $rules = array(
-            'name'      => 'max:255|required|regex:/^[a-zA-Z0-9\- _]*$/',
+            'name'      => 'max:255|required|regex:/^[a-zA-Z0-9- _]*$/',
             'email'     => 'max:255|email|required|confirmed|unique:users,email',
             'password'  => 'min:5|required|confirmed'
             );
@@ -127,19 +130,64 @@ class UserController extends BaseController {
     public function getSettings()
     {
         return View::make('settings')
-                ->with('user', Auth::user());
+                ->with('user', Auth::user())
+                ->with('errors', Session::has('errors') ? Session::get('errors') : array())
+                ->with('successes', Session::has('successes') ? Session::get('successes') : array());
     }
 
     /**
-     * Validates and responds to POST requests to settings
+     * Validates and responds to POST requests to change settings
      * 
      * @return 302:settings
      */
     public function postSettings()
     {
-        // TODO: Implement
+        $data = Input::all();
 
-        echo "hi";
+        $errors = array();
+        $successes = array();
+
+        // If the name has been changed
+        if(Input::get('name') != Auth::user()->display_name)
+        {
+            $rules = array(
+                'name'  => 'max:255|regex:/^[a-zA-Z0-9- _]*$/'
+            );
+            $validator = Validator::make($data, $rules);
+
+            if($validator->passes())
+            {
+                $user = Auth::user();
+                $user->display_name = Input::get('name');
+                $user->save();
+                array_push($successes, 'Display name changed successfully');
+            }
+            else   // If validation fails, add the error message to the array
+                array_push($errors, $validator->messages()->first());
+        }
+
+        if(Input::get('cur_password') != '' || Input::get('new_password') != '')
+        {
+            $rules = array(
+                'cur_password'  => 'passcheck|required',
+                'new_password'  => 'required|min:5|confirmed'
+            );
+            $validator = Validator::make($data, $rules);
+
+            if($validator->passes())
+            {
+                $user = Auth::user();
+                $user->password = Hash::make(Input::get('new_password'));
+                $user->save();
+                array_push($successes, 'Password changed successfully');
+            }
+            else   // If validation fails, add the error message to the array
+                array_push($errors, $validator->messages()->first());
+        }
+
+        return Redirect::action('UserController@getSettings')
+                    ->with('errors', $errors)
+                    ->with('successes', $successes);
     }
 
     /**

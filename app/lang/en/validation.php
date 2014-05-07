@@ -69,6 +69,8 @@ return array(
 	"unique"           => "The :attribute has already been taken.",
 	"url"              => "The :attribute format is invalid.",
 
+    "passcheck" => "The current password is incorrect",
+
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Language Lines

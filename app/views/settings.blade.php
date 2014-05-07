@@ -8,6 +8,16 @@
     <h3>Settings</h3>
     {{ Form::open(array('action' => 'UserController@postSettings')) }}
 
+        {{-- SUCCESSES --}}
+        @foreach($successes as $success)
+            <span class="success">{{ $success }}</span>
+        @endforeach
+
+        {{-- ERRORS --}}
+        @foreach($errors as $error)
+            <span class="error">{{ $error }}</span>
+        @endforeach
+
         {{-- EMAIL FIELD --}}
         {{ Form::label('email', 'E-Mail') }}
         {{ Form::text('email', $user->email, array('disabled')) }}
