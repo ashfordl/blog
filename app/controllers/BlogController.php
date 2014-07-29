@@ -5,7 +5,8 @@ class BlogController extends BaseController {
 	public function getIndex()
 	{
         // Display most recent post
-        $post = Blogpost::orderBy('created_at')
+        $post = Blogpost::visible()
+                        ->orderBy('created_at')
                         ->get()
                         ->last();
 
@@ -15,7 +16,7 @@ class BlogController extends BaseController {
 
     public function getList()
     {
-        $posts = Blogpost::where('deleted', '=', 0)
+        $posts = Blogpost::visible()
                         ->orderBy('created_at')
                         ->get()
                         ->reverse();
@@ -26,8 +27,8 @@ class BlogController extends BaseController {
 
     public function getPost($id, $title="")
     {
-        $post = Blogpost::find($id);
-
+        $post = Blogpost::visible()
+                        ->find($id);
 
         return View::make('blogpost')
                 ->with('post', $post);
