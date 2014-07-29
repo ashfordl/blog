@@ -1,7 +1,7 @@
 @extends('templates.base')
 
 @section('title')
-    Login | Blog
+    Login
 @stop
 
 @section('body')

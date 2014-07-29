@@ -1,7 +1,7 @@
 @extends('templates.base')
 
 @section('title')
-    Settings | Blog
+    Settings
 @stop
 
 @section('body')

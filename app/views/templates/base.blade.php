@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@yield('title')</title>
+    <title>@yield('title') | Blog</title>
     {{--  CSS HERE --}}
     @yield('head')
 </head>
@@ -10,6 +10,10 @@
     <ul>
         <li><a href="{{ route('blog') }}">Blog</a></li>
         <li><a href="{{ route('bloglist') }}">Archive</a></li>
+        @if (Auth::check() && Auth::user()->isAdmin())
+            <li><a href="{{ route('admin') }}">Admin Dashboard</a></li>
+        @endif
+
     </ul>
 
     {{-- Login Information --}}
@@ -23,7 +27,7 @@
     @endif
 
     @yield('body')
-
-    {{-- JS HERE --}}
+    
+    @yield('js')
 </body>
 </html>

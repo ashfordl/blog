@@ -1,11 +1,11 @@
 @extends('templates.base')
 
 @section('title')
-    Post | Blog
+    Archive
 @stop
 
 @section('body')
-    <h3>List of posts</h3>
+    <h1>Archive of posts</h1>
     @foreach($posts as $post)
         <p><a href="{{ route('blogpost').'/'.$post->id }}">{{{ $post->title }}}</a></p>
     @endforeach

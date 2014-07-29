@@ -23,7 +23,7 @@ class UserController extends BaseController
      */
     public function getLogin()
     {
-        return View::make('login')
+        return View::make('user.login')
                     ->with('login_error', Session::get('login_error'));
     }
 
@@ -83,7 +83,7 @@ class UserController extends BaseController
      */
     public function getRegister()
     {   
-        return View::make('register');
+        return View::make('user.register');
     }
 
     /**
@@ -93,13 +93,13 @@ class UserController extends BaseController
      */
     public function postRegister()
     {   
-        $data = Input::all();
+
         $rules = array(
             'name'      => 'max:255|required|regex:/^[a-zA-Z0-9- _]*$/',
             'email'     => 'max:255|email|required|confirmed|unique:users,email',
             'password'  => 'min:5|required|confirmed'
-            );
-        $validator = Validator::make($data, $rules);
+        );
+        $validator = Validator::make(Input::all(), $rules);
 
         if($validator->fails())
         {
@@ -108,18 +108,20 @@ class UserController extends BaseController
                         ->withErrors($validator)
                         ->withInput();
         }
+        else 
+        {
+            // Create a new user
+            $user = new User();
+            $user->display_name = Input::get('name');
+            $user->email = Input::get('email');
+            $user->password = Hash::make(Input::get('password'));
+            $user->save();
 
-        // Create a new user
-        $user = new User();
-        $user->display_name = Input::get('name');
-        $user->email = Input::get('email');
-        $user->password = Hash::make(Input::get('password'));
-        $user->save();
+            // Log him in
+            Auth::login($user);
 
-        // Log him in
-        Auth::login($user);
-
-        return Redirect::route('blog');
+            return Redirect::route('blog');
+        }
     }
 
     /**
@@ -129,7 +131,7 @@ class UserController extends BaseController
      */
     public function getSettings()
     {
-        return View::make('settings')
+        return View::make('user.settings')
                 ->with('user', Auth::user())
                 ->with('errors', Session::has('errors') ? Session::get('errors') : array())
                 ->with('successes', Session::has('successes') ? Session::get('successes') : array());

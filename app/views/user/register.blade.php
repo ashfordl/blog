@@ -1,14 +1,14 @@
 @extends('templates.base')
 
 @section('title')
-    Login | Blog
+    Register
 @stop
 
 @section('body')
     <h3>Register</h3>
     {{ Form::open(array('action' => 'UserController@postRegister')) }}
 
-        @if (isset($errors))
+        @if(isset($errors))
             <span class="error">{{ $errors->first() }}</span>
         @endif
 
