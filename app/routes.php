@@ -11,25 +11,44 @@
 |
 */
 
-Route::get('/', function()
+// Filter all id patterns
+Route::pattern('id', '\d+');
+
+// GET / Redirect Index
+Route::get('', function()
 {
 	return Redirect::route('blog');
 });
 
+// GET blog/list Blog Home
 Route::get('blog', array(
     'as' => 'blog',
     'uses' => 'BlogController@getIndex'
     ));
 
+// GET blog/list Blog Archive
 Route::get('blog/list', array (
     'as' => 'bloglist',
     'uses' => 'BlogController@getList'
     ));
 
+// GET blog/[num]/[...] 
 Route::get('blog/{id}/{title?}', array(
     'as' => 'blogpost',
     'uses' => 'BlogController@getPost'
-    ))
-    ->where('id', '[0-9]+');
+    ));
 
+// REST user/* All user related actions
 Route::controller('user', 'UserController');
+
+// GET admin Admin home page
+Route::get('admin', array(
+    'as' => 'admin',
+    'before' => 'admin',
+    function ()
+    {
+        return View::make('admin.index');
+    }));
+    
+// REST admin/blog/* Blog admin actions
+Route::controller('admin/blog', 'BlogAdminController');
