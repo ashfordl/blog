@@ -82,10 +82,20 @@ require app_path().'/filters.php';
 
 /*
 |--------------------------------------------------------------------------
-| Require The Validaotrs File
+| Require The Validators File
 |--------------------------------------------------------------------------
 |
-| This file contains any custom validation rules
+| This file contains any custom validation rules.
 |
 */
 require app_path().'/validators.php';
+
+/*
+|--------------------------------------------------------------------------
+| Require The Exceptions File
+|--------------------------------------------------------------------------
+|
+| This file contains any custom exception handlers.
+|
+*/
+require app_path().'/exceptions.php';
