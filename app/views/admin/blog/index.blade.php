@@ -16,10 +16,12 @@
         </tr>
     @foreach($posts as $post)
         <tr>
-            <td><a href="{{ action('BlogController@getPost', array($post->id)) }}">{{{ $post->title }}}</a></td>
+            <td><a href="{{ action('BlogAdminController@getPost', array($post->id)) }}">{{{ $post->title }}}</a></td>
             <td>{{{ $post->created_at }}}</td>
             <td>{{{ $post->deleted ? 'Hidden' : 'Visible' }}}</td>
-            <td><a href="{{ action('BlogAdminController@getPost', array($post->id)) }}">Edit</a></td>
+            @if (!$post->deleted)
+                <td><a href="{{ action('BlogController@getPost', array($post->id)) }}">View</a></td>
+            @endif
         </tr>
     @endforeach
     </table>

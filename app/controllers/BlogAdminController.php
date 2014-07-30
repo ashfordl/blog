@@ -22,17 +22,14 @@ class BlogAdminController extends BaseController
     {
         $post = Blogpost::find($id);
 
-        // If fail, abort
-        if (is_null($post))
+        // If editing, append title to URL
+        if (isset($post))
         {
-            App::abort(404);
-        }
-
-        // Append the title to the URL
-        $titleURL = $post->getTitleURLString();
-        if ($title != $titleURL)
-        {
-            return Redirect::action('BlogAdminController@getPost', array($id, $titleURL));
+            $titleURL = $post->getTitleURLString();
+            if ($title != $titleURL)
+            {
+                return Redirect::action('BlogAdminController@getPost', array($id, $titleURL));
+            }
         }
 
         return View::make('admin.blog.edit')
