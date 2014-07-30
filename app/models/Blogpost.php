@@ -59,4 +59,15 @@ class Blogpost extends Eloquent
     {
         return $query->where('deleted', '=', '0');
     }
+
+    /**
+     * Returns a URL-safe string of the title
+     *
+     * @return string
+     */
+    public function getTitleURLString()
+    {
+        return preg_replace('/^-+|-+$/', '', strtolower(
+            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($post->title, 0, 40))));
+    }
 }

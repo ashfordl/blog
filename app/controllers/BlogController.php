@@ -30,6 +30,19 @@ class BlogController extends BaseController {
         $post = Blogpost::visible()
                         ->find($id);
 
+        // If fail, abort
+        if (is_null($post))
+        {
+            App::abort(404);
+        }
+
+        // Append the title to the URL
+        $titleURL = $post->getTitleURLString();
+        if ($title != $titleURL)
+        {
+            return Redirect::route('blogpost', array($id, $titleURL));
+        }
+
         return View::make('blogpost')
                 ->with('post', $post);
     }
