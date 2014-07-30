@@ -34,10 +34,7 @@ class UserController extends BaseController
      */
     public function postLogin()
     {
-        // Retrieve data and attempt login
-        $login = User::attemptLogin(Input::all());
-
-        if ($login)
+        if (User::attemptLogin(Input::all()))
         {
             // Login successful
             return Redirect::route('blog');
@@ -79,10 +76,7 @@ class UserController extends BaseController
      */
     public function postRegister()
     {   
-        // Retrieve data and attempt register
-        $register = User::attemptRegister(Input::all());
-
-        if ($register)
+        if (User::attemptRegister(Input::all()))
         {
             // Register successful
             return Redirect::route('blog');

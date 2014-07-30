@@ -111,7 +111,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
             // Set validator
             User::$registerValidator = $validator;
-
             return true;
         }
     }
@@ -142,14 +141,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
             // Set validator
             User::$updateNameValidator = $validator;
-
             return true;
         }
         else
         {
             // Invalid input
             User::$updateNameValidator = $validator;
-
             return false;
         }
     }
@@ -180,14 +177,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
             // Set validator
             User::$updatePasswordValidator = $validator;
-
             return true;
         }
         else
         {
             // Invalid input
             User::$updatePasswordValidator = $validator;
-
             return false;
         }
     }
