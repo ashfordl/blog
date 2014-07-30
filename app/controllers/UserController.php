@@ -37,7 +37,7 @@ class UserController extends BaseController
         if (User::attemptLogin(Input::all()))
         {
             // Login successful
-            return Redirect::route('blog');
+            return Redirect::route('home');
         }
         else
         {
@@ -56,7 +56,7 @@ class UserController extends BaseController
     function getLogout()
     {
         Auth::logout();
-        return Redirect::route('blog');
+        return Redirect::route('home');
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends BaseController
         if (User::attemptRegister(Input::all()))
         {
             // Register successful
-            return Redirect::route('blog');
+            return Redirect::route('home');
         }
         else
         {

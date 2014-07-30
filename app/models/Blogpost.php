@@ -68,6 +68,6 @@ class Blogpost extends Eloquent
     public function getTitleURLString()
     {
         return preg_replace('/^-+|-+$/', '', strtolower(
-            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($post->title, 0, 40))));
+            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
     }
 }

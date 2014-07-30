@@ -15,28 +15,16 @@
 Route::pattern('id', '\d+');
 
 // GET / Redirect Index
-Route::get('', function()
-{
-	return Redirect::route('blog');
-});
+Route::get('', array(
+    'as' => 'home',
+    function()
+    {
+	   return Redirect::action('BlogController@getIndex');
+    }
+));
 
-// GET blog/list Blog Home
-Route::get('blog', array(
-    'as' => 'blog',
-    'uses' => 'BlogController@getIndex'
-    ));
-
-// GET blog/list Blog Archive
-Route::get('blog/list', array (
-    'as' => 'bloglist',
-    'uses' => 'BlogController@getList'
-    ));
-
-// GET blog/[num]/[...] 
-Route::get('blog/{id}/{title?}', array(
-    'as' => 'blogpost',
-    'uses' => 'BlogController@getPost'
-    ));
+// REST blog/* All blog related actions
+Route::controller('blog', 'BlogController');
 
 // REST user/* All user related actions
 Route::controller('user', 'UserController');
@@ -48,7 +36,8 @@ Route::get('admin', array(
     function ()
     {
         return View::make('admin.index');
-    }));
+    }
+));
     
 // REST admin/blog/* Blog admin actions
 Route::controller('admin/blog', 'BlogAdminController');

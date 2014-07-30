@@ -32,7 +32,7 @@ class BlogAdminController extends BaseController
         $titleURL = $post->getTitleURLString();
         if ($title != $titleURL)
         {
-            return Redirect::route('blogpost', array($id, $titleURL));
+            return Redirect::action('BlogAdminController@getPost', array($id, $titleURL));
         }
 
         return View::make('admin.blog.edit')

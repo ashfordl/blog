@@ -40,7 +40,7 @@ class BlogController extends BaseController {
         $titleURL = $post->getTitleURLString();
         if ($title != $titleURL)
         {
-            return Redirect::route('blogpost', array($id, $titleURL));
+            return Redirect::action('BlogController@getPost', array($id, $titleURL));
         }
 
         return View::make('blogpost')
