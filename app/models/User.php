@@ -238,4 +238,28 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return false;
     }
 
+    public function isBanned()
+    {
+        $bans = $this->receivedBans()->get();
+
+        foreach ($bans as $ban) 
+        {
+            if ($ban->end > new DateTime())
+                return true;
+            if (is_null($ban->end))
+                return true;
+        }
+
+        return false;
+    }
+
+    public function receivedBans()
+    {
+        return $this->hasMany('Ban', 'user');
+    }
+
+    public function issuedBans()
+    {
+        return $this->hasMany('Ban', 'issued_by');
+    }
 }
