@@ -16,7 +16,7 @@ class UserAdminController extends BaseController
             ->with('users', $users);
     }
 
-    public function getUser($id)
+    public function getView($id)
     {
         $user = User::find($id);
 
