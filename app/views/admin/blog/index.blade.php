@@ -10,12 +10,14 @@
     <h3>Edit posts</h3>
     <table>
         <tr>
+            <th>ID</th>
             <th>Title</th>
             <th>Date</th>
             <th>Status</th>
         </tr>
     @foreach($posts as $post)
         <tr>
+            <td>{{{ $post->id }}}</td>
             <td><a href="{{ action('BlogAdminController@getPost', array($post->id)) }}">{{{ $post->title }}}</a></td>
             <td>{{{ $post->created_at }}}</td>
             <td>{{{ $post->deleted ? 'Hidden' : 'Visible' }}}</td>
