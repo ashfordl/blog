@@ -41,3 +41,6 @@ Route::get('admin', array(
     
 // REST admin/blog/* Blog admin actions
 Route::controller('admin/blog', 'BlogAdminController');
+
+// REST admin/user/* User admin actions
+Route::controller('admin/user', 'UserAdminController');

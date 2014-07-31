@@ -9,6 +9,6 @@
 
     <ul>
     <li><a href="{{ action('BlogAdminController@getIndex') }}">Blog</a></li>
-    <li><a href="{{-- action('UserAdminController@getIndex') --}}">User</a></li>
+    <li><a href="{{ action('UserAdminController@getIndex') }}">User</a></li>
     </ul>
 @stop
