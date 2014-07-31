@@ -16,7 +16,7 @@ class CreateBantypesTable extends Migration {
             {
                 $table->increments('id');
                 $table->string('name');
-                $table->integer('default_length')->unsigned()->default(5);
+                $table->integer('default_length')->default(5);
             });
 	}
 
