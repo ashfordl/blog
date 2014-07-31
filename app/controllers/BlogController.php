@@ -6,7 +6,6 @@ class BlogController extends BaseController {
 	{
         // Display most recent post
         $post = Blogpost::visible()
-                        ->orderBy('created_at')
                         ->get()
                         ->last();
 
@@ -17,7 +16,6 @@ class BlogController extends BaseController {
     public function getList()
     {
         $posts = Blogpost::visible()
-                        ->orderBy('created_at')
                         ->get()
                         ->reverse();
 

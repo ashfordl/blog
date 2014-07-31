@@ -10,9 +10,7 @@ class BlogAdminController extends BaseController
 
     public function getIndex()
     {
-        $posts = Blogpost::orderBy('created_at')
-                        ->get()
-                        ->reverse();
+        $posts = Blogpost::all()->reverse();
 
         return View::make('admin.blog.index')
                 ->with('posts', $posts);
