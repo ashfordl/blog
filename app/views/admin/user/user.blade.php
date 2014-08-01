@@ -23,6 +23,12 @@
     </table>
 
     <h3>Bans</h3>
+    @if ($user->isBanned())
+        <p>This user is currently banned. Ban {{ $user->receivedBans()->last()->get()->isPermanent() ? 'is permanent.' : 'Ban expires on '.$user->receivedBans()->last()->get()->end.'.' }} <a>Cancel</a> <a>Extend</a></p>
+    @else
+        <a>Ban this user</a>
+    @endif
+
     @if (count($user->receivedBans()->get()) == 0)
         <p>This user has received no bans.</p>
     @else
