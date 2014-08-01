@@ -16,4 +16,9 @@ class Ban extends Eloquent
     {
         return $this->belongsTo('Bantype', 'type');
     }
+
+    public function isPermanent()
+    {
+        return is_null($this->end);
+    }
 }
