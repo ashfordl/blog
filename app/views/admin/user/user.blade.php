@@ -24,9 +24,29 @@
 
     <h3>Bans</h3>
     @if ($user->isBanned())
-        <p>This user is currently banned. Ban {{ $user->receivedBans()->last()->get()->isPermanent() ? 'is permanent.' : 'Ban expires on '.$user->receivedBans()->last()->get()->end.'.' }} <a>Cancel</a> <a>Extend</a></p>
+        <p>This user is currently banned. Ban {{ $user->receivedBans()->get()->last()->isPermanent() ? 'is permanent.' : ' expires on '.$user->receivedBans()->get()->last()->end.'.' }} <a>Cancel</a> <a>Extend</a></p>
     @else
-        <a>Ban this user</a>
+        <h4>Ban this user</h4>
+        <div>
+            {{ Form::open(array('action' => array('UserAdminController@postBan'))) }}
+                @if(isset($errors))
+                    <span class="error">{{ $errors->first() }}</span>
+                @endif
+
+                {{-- ID of banned player --}}
+                {{ Form::hidden('user', $user->id) }}
+
+                {{-- DAYS FIELD --}}
+                {{ Form::label('length', 'Length') }}
+                {{ Form::text('length', '3') }}
+
+                {{-- COMMENT FIELD --}}
+                {{ Form::label('comment', 'Comment') }}
+                {{ Form::text('comment', null, array('placeholder' => 'Comment')) }}
+
+                {{ Form::submit() }}
+            {{ Form::close() }} 
+        </div>
     @endif
 
     @if (count($user->receivedBans()->get()) == 0)
@@ -38,20 +58,17 @@
                 <th>Start</th>
                 <th>Finish</th>
                 <th>Validity</th>
-                <th>Type</th>
                 <th>Comment</th>
             </tr>
         @foreach ($user->receivedBans()->get() as $ban)
             <tr>
                 <td>{{{ $ban->issuer->display_name }}}</td>
                 <td>{{{ $ban->start }}}</td>
-                <td>{{{ $ban->end }}}</td>
+                <td>{{{ isset($ban->end) ? $ban->end : 'Permanent' }}}</td>
                 <td>{{{ $ban->valid ? 'Valid' : 'Invalid' }}}</td>
-                <td>{{{ $ban->type->name }}}</td>
                 <td>{{{ $ban->comment }}}</td>
             </tr>
         @endforeach
         </table>
     @endif
-    
 @stop

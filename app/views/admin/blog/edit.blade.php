@@ -1,7 +1,11 @@
 @extends('templates.base')
 
 @section('title')
-    Edit Post
+    @if (isset($post))
+        Edit Post
+    @else
+        Create Post
+    @endif
 @stop
 
 @section('body')
