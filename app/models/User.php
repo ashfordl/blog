@@ -31,7 +31,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @var array
      */
     protected static $nameRules = array(
-            'name'  => 'max:255|regex:/^[a-zA-Z0-9- _]*$/'
+            'name'  => 'max:255|min:2|regex:/^[a-zA-Z0-9- _]*$/'
         );
 
     /**
@@ -101,9 +101,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         {
             // Create a new user
             $user = new User();
-            $user->display_name = Input::get('name');
-            $user->email = Input::get('email');
-            $user->password = Hash::make(Input::get('password'));
+            $user->display_name = $data['name'];
+            $user->email = $data['email'];
+            $user->password = Hash::make($data['password']);
             $user->save();
 
             // Log him in
@@ -172,7 +172,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         {
             // Valid input; update the password
             $user = Auth::user();
-            $user->password = Hash::make(Input::get('new_password'));
+            $user->password = Hash::make($data['new_password']);
             $user->save();
 
             // Set validator
@@ -240,11 +240,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function isBanned()
     {
-        $bans = $this->receivedBans()->get();
+        $bans = $this->receivedBans()->valid()->get();
+
+        // var_dump($bans);
 
         foreach ($bans as $ban) 
         {
-            if ($ban->end > new DateTime())
+            if (new DateTime($ban->end) >= new DateTime())
                 return true;
             if (is_null($ban->end))
                 return true;
