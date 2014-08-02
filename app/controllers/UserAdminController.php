@@ -24,8 +24,25 @@ class UserAdminController extends BaseController
         {
             App::abort(404);
         }
-
+        
         return View::make('admin.user.user')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('errors', Session::get('errors'));
+    }
+
+    public function postBan()
+    {
+        if (Ban::attemptBan(Input::all()))
+        {
+            // Ban successful
+            return Redirect::action('UserAdminController@getView', intval(Input::get('user')));
+        }
+        else
+        {
+            // Ban unsuccessful
+            return Redirect::action('UserAdminController@getView', intval(Input::get('user')))
+                        ->withErrors(Ban::$banValidator)
+                        ->withInput();
+        }
     }
 }
