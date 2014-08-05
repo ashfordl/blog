@@ -44,6 +44,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             'new_password'  => 'required|min:5|confirmed'
         );
 
+    public static $bannedUser = null;
+
     /**
      * Attempts to login a user with passed data.
      *
@@ -53,6 +55,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         // Validate input
         $validator = Validator::make($data, User::$loginRules);
+        User::$bannedUser = null;
 
         if ($validator->fails())
         {
@@ -64,7 +67,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password']), 
             (isset($data['permanent']) && $data['permanent']) ))
         {
-            // Successful login
+            if (Auth::user()->isBanned())
+            {
+                User::$bannedUser = Auth::user();
+                Auth::logout();
+                return false;
+            }
             return true;
         }
         else

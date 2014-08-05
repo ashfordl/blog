@@ -10,7 +10,7 @@ class UserController extends BaseController
      */
     public function __construct()
     {
-        $exceptions = array('getLogin', 'postLogin', 'getRegister', 'postRegister');
+        $exceptions = array('getLogin', 'postLogin', 'getRegister', 'postRegister', 'getBanned');
         $this->beforeFilter('auth', array('except' => $exceptions));
         $this->beforeFilter('guest', array('only'  => $exceptions));
         $this->beforeFilter('csrf', array('on' => 'post'));
@@ -41,11 +41,28 @@ class UserController extends BaseController
         }
         else
         {
-            // Login unsuccessful
-            return Redirect::action('UserController@getLogin')
-                        ->with('login_error', true)
-                        ->withInput();
+            if (isset(User::$bannedUser))
+            {
+                // Banned
+                return Redirect::action('UserController@getBanned')
+                    ->with('user', User::$bannedUser);
+            }
+            else
+            {
+                // Login unsuccessful
+                return Redirect::action('UserController@getLogin')
+                            ->with('login_error', true)
+                            ->withInput();
+            }
         }
+    }
+
+    public function getBanned()
+    {
+        // var_dump(Session::get('user')->receivedBans()->get()->last());
+
+        return View::make('user.banned')
+            ->with('ban', Session::get('user')->receivedBans()->get()->last());
     }
 
     /**
