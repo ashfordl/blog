@@ -9,3 +9,10 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 /.project
+
+# Exclude compiled CSS
+/public/res/css/*
+/public/res/bootstrap/*
+
+# Exclude local JS
+/public/res/lib/*
