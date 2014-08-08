@@ -6,8 +6,8 @@
 
 @section('body')
     <h1>Banned</h1>
-    <p>You have been banned. Ban {{ $ban->isPermanent() ? 'is permanent.' : ' expires on '.$ban->end.'.' }}</p>
-    <p><b>Issued By</b> {{ $ban->issuer->display_name }}</p>
-    <p><b>Comment</b> {{{ $ban->comment }}}</p>
-    <p>To appeal, please email appeal(at)localhost</p>
+    <p>You have been banned. Your ban {{ $ban->isPermanent() ? 'is permanent.' : ' expires on '.$ban->end.'.' }}</p>
+    <h4>Issued By</h4><p>{{ $ban->issuer->display_name }}</p>
+    <h4>Comment</h4><p>{{{ $ban->comment }}}</p>
+    <h4>Appeal</h4><p>To appeal, please email appeal&#64;localhost</p>
 @stop
