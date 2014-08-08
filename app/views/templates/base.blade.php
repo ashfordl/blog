@@ -17,22 +17,23 @@
     @yield('head')
 </head>
 <body>
+    <div class="container-fluid page-header"><h2>ashfordl</h2></div>
+
     {{-- NAVBAR --}}
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <!-- Brand and mobile toggle button -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-content">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ route('home') }}">Blog</a>
             </div>
 
             <!-- Navbar Content -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="navbar-content">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('home') }}">Blog</a></li>
                     <li><a href="{{ action('BlogController@getList') }}">Archive</a></li>
@@ -48,29 +49,21 @@
                                 </ul>
                             </li>
                         @endif
-                        <li>
-                            <a class="dropdown-toggle" data-toggle="dropdown">User <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ action('UserController@getSettings') }}">{{{ Auth::user()->display_name }}}</a></li>
-                                <li><a href="{{ action('UserController@getLogout') }}">Logout</a></li>
-                            </ul>
-                        </li>
+                            <li><p class="navbar-text">Logged in as <a href="{{ action('UserController@getSettings') }}" class="navbar-link">{{{ Auth::user()->display_name }}}</a></p></li>
+                            <li><a href="{{ action('UserController@getLogout') }}">Logout</a></li>
                     @else
-                        <li>
-                            <a class="dropdown-toggle" data-toggle="dropdown">User <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ action('UserController@getLogin') }}">Login</a></li>
-                                <li><a href="{{ action('UserController@getRegister') }}">Register</a></li>
-                            </ul>
-                        </li>
+                            <li><a href="{{ action('UserController@getLogin') }}">Login</a></li>
+                            <li><a href="{{ action('UserController@getRegister') }}">Register</a></li>
                     @endif
                 </ul>
             </div>
         </div>
     </nav>
 
-    @yield('body')
-    
+    <div class="container-fluid">
+        @yield('body')
+    </div>
+
     {{-- JS --}}
         <script src="{{ asset('res/lib/jquery-1.11.1.min.js') }}"></script>
         <script src="{{ asset('res/lib/bootstrap.min.js') }}"></script>
