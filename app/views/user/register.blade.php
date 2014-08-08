@@ -46,6 +46,6 @@
         {{ Form::password('password_confirmation', array('placeholder' => 'Confirm password', 'class' => 'form-control')) }}
         </div>
 
-        {{ Form::submit('Register', array('class' => 'btn btn-default btn-block')) }}
+        {{ Form::submit('Register', array('class' => 'btn btn-primary btn-block')) }}
     {{ Form::close() }}
 @stop

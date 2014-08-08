@@ -34,6 +34,6 @@
         {{ Form::label('permanent', 'Remember me?') }}
         </div>
 
-        {{ Form::submit('Log in', array('class' => 'btn btn-default btn-block')) }}
+        {{ Form::submit('Log in', array('class' => 'btn btn-primary btn-block')) }}
     {{ Form::close() }}
 @stop
