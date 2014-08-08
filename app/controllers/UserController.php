@@ -59,7 +59,10 @@ class UserController extends BaseController
 
     public function getBanned()
     {
-        // var_dump(Session::get('user')->receivedBans()->get()->last());
+        if (!Session::has('user'))
+        {
+            return Redirect::route('home');
+        }
 
         return View::make('user.banned')
             ->with('ban', Session::get('user')->receivedBans()->get()->last());

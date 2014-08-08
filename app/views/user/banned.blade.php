@@ -11,6 +11,3 @@
     <p><b>Comment</b> {{{ $ban->comment }}}</p>
     <p>To appeal, please email appeal(at)localhost</p>
 @stop
-
-
-YOU ARE BANNED.
