@@ -28,7 +28,7 @@
                 
                 <td>@if (!$post->deleted)
                     <a href="{{ action('BlogController@getPost', array($post->id)) }}">View</a>
-                @endif</td>
+                @endif </td>
                 
             </tr>
         @endforeach
