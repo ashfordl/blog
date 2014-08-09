@@ -7,8 +7,8 @@
 @section('body')
     <h1>User Admin</h1>
 
-    <h4>Users</h4>
     <div class="col-md-8 col-lg-6">
+        <h4>Users</h4>
         <table class="table table-hover">
             <tr>
                 <th>ID</th>

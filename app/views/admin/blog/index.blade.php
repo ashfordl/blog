@@ -8,9 +8,9 @@
     <h1>Blog Admin</h1>
 
     <a href="{{ action('BlogAdminController@getPost') }}"><h4>Create post</h4></a>
-    <h4>Posts</h4>
-
+    
     <div class="col-md-8 col-lg-6">
+        <h4>Posts</h4>
         <table class="table table-hover">
             <tr>
                 <th>ID</th>
