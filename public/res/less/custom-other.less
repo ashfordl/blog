@@ -1,11 +1,19 @@
+@import "../bootstrap/less/variables.less";
+@import "custom-variables.less";
+
 .navbar {
-    border-radius: 0px;
     border-left: none;
     border-right: none;
 }
 
+.navbar li a:active {
+    text-decoration: underline;
+}
+
 .page-header {
-    margin: 10px 0px 0px;
+    background-color: @brand-primary;
+    margin: 0px;
+    padding-top: 10px;
     border-bottom: none;
 }
 
