@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-md-8 col-lg-6">
-            <h3>Info</h3>
+            <h3>User Info</h3>
             <table class="table table-condensed">
                 <tr>
                     <th>ID</th>
@@ -77,6 +77,7 @@
                     <p class="bg-info thin-sides-margin">This user has received no bans.</p>
                 </div>
             @else
+            <div class="col-xs-12 thin-sides-padding"><h5>Ban History</h5>
                 <table class="table table-condensed">
                     <tr>
                         <th>Issued By</th>
@@ -95,6 +96,7 @@
                     </tr>
                 @endforeach
                 </table>
+                </div>
             @endif
         </div>
     </div>
