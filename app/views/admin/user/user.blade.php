@@ -73,8 +73,8 @@
             @endif
 
             @if (count($user->receivedBans()->get()) == 0)
-                <div class="col-sm-offset-1 col-sm-6 col-lg-7 thin-sides-padding">
-                    <p class="bg-info thin-sides-margin">This user has received no bans.</p>
+                <div class="col-sm-offset-1 col-sm-6 col-lg-7 panel panel-info">
+                    <div class="panel-body">This user has received no bans.</div>
                 </div>
             @else
             <div class="col-xs-12 thin-sides-padding"><h5>Ban History</h5>
