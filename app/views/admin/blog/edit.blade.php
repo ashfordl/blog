@@ -2,9 +2,9 @@
 
 @section('title')
     @if (isset($post))
-        Edit Post
+        Edit | {{ substr($post->title, 0, 23) }}
     @else
-        Create Post
+        Create
     @endif
 @stop
 

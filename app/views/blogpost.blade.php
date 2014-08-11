@@ -1,7 +1,7 @@
 @extends('templates.base')
 
 @section('title')
-    Post
+    {{ substr($post->title, 0, 30) }}
 @stop
 
 @section('body')

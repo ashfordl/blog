@@ -1,7 +1,7 @@
 @extends('templates.base')
 
 @section('title')
-    User Admin
+    Admin | {{ substr($user->display_name, 0, 22) }}
 @stop
 
 @section('body')
