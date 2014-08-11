@@ -5,8 +5,9 @@
 @stop
 
 @section('body')
-    <h3>Register</h3>
-    {{ Form::open(array('action' => 'UserController@postRegister', 'class' => 'col-sm-5 col-lg-4')) }}
+<div class="col-sm-5 col-lg-4">
+    <h1>Register</h1>
+    {{ Form::open(array('action' => 'UserController@postRegister')) }}
 
         @if(isset($errors) && $errors->first() != "")
             <div class="panel panel-danger">
@@ -48,4 +49,5 @@
 
         {{ Form::submit('Register', array('class' => 'btn btn-primary btn-block')) }}
     {{ Form::close() }}
+</div>
 @stop

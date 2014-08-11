@@ -1,4 +1,4 @@
-<div class="post col-md-10 col-lg-8">
+<div class="col-md-10 col-lg-8">
     @if (isset($post))
         <h1>{{{ $post->title }}}</h1>
 
