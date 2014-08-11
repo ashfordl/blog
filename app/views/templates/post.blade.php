@@ -8,10 +8,10 @@
 
         <div class="forceheight" id="post-navlinks">
             @if(isset($prev))
-                <a class="pull-left" href="{{ action('BlogController@getPost', array($prev->id)) }}">&larr; Previous</a>
+                <a class="pull-left" href="{{ action('BlogController@getPost', array($prev->id, $prev->getTitleURLString())) }}">&larr; Previous</a>
             @endif
             @if(isset($next))
-                <a class="pull-right" href="{{ action('BlogController@getPost', array($next->id)) }}">Next &rarr;</a>
+                <a class="pull-right" href="{{ action('BlogController@getPost', array($next->id, $next->getTitleURLString())) }}">Next &rarr;</a>
             @endif
         </div>
 

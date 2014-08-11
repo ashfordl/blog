@@ -27,7 +27,7 @@
                 <td>{{{ $post->deleted ? 'Hidden' : 'Visible' }}}</td>
                 
                 <td>@if (!$post->deleted)
-                    <a href="{{ action('BlogController@getPost', array($post->id)) }}">View</a>
+                    <a href="{{ action('BlogController@getPost', array($post->id, $post->getTitleURLString())) }}">View</a>
                 @endif </td>
                 
             </tr>

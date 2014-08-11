@@ -8,7 +8,7 @@
     <h1>Archive</h1>
     <ul>
         @foreach($posts as $post)
-            <li><a href="{{ action('BlogController@getPost', array($post->id)) }}">{{{ $post->title }}}</a></li>
+            <li><a href="{{ action('BlogController@getPost', array($post->id, $post->getTitleURLString())) }}">{{{ $post->title }}}</a></li>
         @endforeach
     </ul>
 @stop
