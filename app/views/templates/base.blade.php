@@ -65,8 +65,8 @@
     </div>
 
     {{-- JS --}}
-    <script src="{{ asset('res/lib/jquery-1.11.1.min.js') }}"></script>
-    <script src="{{ asset('res/lib/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('res/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('res/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     @yield('js')
 </body>
 </html>
