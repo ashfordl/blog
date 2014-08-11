@@ -71,11 +71,21 @@ class Blogpost extends Eloquent
             preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
     }
 
+    /**
+     * Returns the next visible blogpost by ID
+     *
+     * @return Blogpost
+     */
     public function next()
     {
         return Blogpost::visible()->where('id', '>', $this->id)->orderBy('id')->first();
     }
 
+    /**
+     * Returns the previous visible blogpost by ID
+     *
+     * @return Blogpost
+     */
     public function prev()
     {
         return Blogpost::visible()->where('id', '<', $this->id)->orderBy('id', 'desc')->first();
