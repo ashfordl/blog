@@ -42,6 +42,8 @@ class BlogController extends BaseController {
         }
 
         return View::make('blogpost')
-                ->with('post', $post);
+                ->with('post', $post)
+                ->with('next', $post->next())
+                ->with('prev', $post->prev());
     }
 }
