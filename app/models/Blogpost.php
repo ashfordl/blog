@@ -70,4 +70,14 @@ class Blogpost extends Eloquent
         return preg_replace('/^-+|-+$/', '', strtolower(
             preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
     }
+
+    public function next()
+    {
+        return Blogpost::visible()->where('id', '>', $this->id)->orderBy('id')->first();
+    }
+
+    public function prev()
+    {
+        return Blogpost::visible()->where('id', '<', $this->id)->orderBy('id', 'desc')->first();
+    }
 }
