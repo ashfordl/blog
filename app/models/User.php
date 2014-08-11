@@ -63,9 +63,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             return false;
         }
 
+        $loginData = array('email' => $data['email'], 'password' => $data['password']);
+
         // Input is valid, attempt auth
-        if (Auth::attempt(array('email' => $data['email'], 'password' => $data['password']), 
-            (isset($data['permanent']) && $data['permanent']) ))
+        if (Auth::attempt($loginData,
+                (isset($data['permanent']) && $data['permanent']) ))
         {
             if (Auth::user()->isBanned())
             {
@@ -238,6 +240,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
 
     public function isAdmin()
     {
