@@ -29,7 +29,7 @@
             {{ Form::password('password', array('placeholder' => 'Password', 'class' => 'form-control')) }}
             </div>
 
-            <div class="form-group">
+            <div class="checkbox">
                 <label>
                     {{ Form::checkbox('permanent') }} Remember me?
                 </label>

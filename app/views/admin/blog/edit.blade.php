@@ -41,7 +41,7 @@
             {{ Form::text('tags', null, array('title' => 'Separate tags with spaces', 'class' => 'form-control')) }}
             </div>
 
-            <div class-"form-group">
+            <div class="checkbox">
                 <label>
                     {{ Form::checkbox('deleted') }} Hidden?
                 </label>
