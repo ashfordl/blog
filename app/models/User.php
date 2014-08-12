@@ -130,14 +130,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      *
      * @var Validator
      */
-    public static $updateNameValidator;
+    public $updateNameValidator;
 
     /**
      * Attempts to update the user's name.
      *
      * @return bool
      */
-    public static function attemptUpdateName($data)
+    public function attemptUpdateName($data)
     {
         // Valdiate input
         $validator = Validator::make($data, User::$nameRules);
@@ -145,18 +145,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         if ($validator->passes())
         {
             // Valid input; update the name
-            $user = Auth::user();
-            $user->display_name = $data['name'];
-            $user->save();
+            $this->display_name = $data['name'];
+            $this->save();
 
             // Set validator
-            User::$updateNameValidator = $validator;
+            $this->updateNameValidator = $validator;
             return true;
         }
         else
         {
             // Invalid input
-            User::$updateNameValidator = $validator;
+            $this->updateNameValidator = $validator;
             return false;
         }
     }
@@ -166,14 +165,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      *
      * @var Validator
      */
-    public static $updatePasswordValidator;
+    public $updatePasswordValidator;
 
     /**
      * Attempts to update the user's password.
      *
      * @return bool
      */
-    public static function attemptUpdatePassword($data)
+    public function attemptUpdatePassword($data)
     {
         // Valdiate input
         $validator = Validator::make($data, User::$passRules);
@@ -181,18 +180,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         if ($validator->passes())
         {
             // Valid input; update the password
-            $user = Auth::user();
-            $user->password = Hash::make($data['new_password']);
-            $user->save();
+            $this->password = Hash::make($data['new_password']);
+            $this->save();
 
             // Set validator
-            User::$updatePasswordValidator = $validator;
+            $this->updatePasswordValidator = $validator;
             return true;
         }
         else
         {
             // Invalid input
-            User::$updatePasswordValidator = $validator;
+            $this->updatePasswordValidator = $validator;
             return false;
         }
     }

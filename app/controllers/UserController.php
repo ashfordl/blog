@@ -135,29 +135,31 @@ class UserController extends BaseController
         $errors = array();
         $successes = array();
 
+        $user = Auth::user();
+
         // If the name has been changed
-        if (Input::get('name') != Auth::user()->display_name)
+        if (Input::get('name') != $user->display_name)
         {
-            if (User::attemptUpdateName($data))
+            if ($user->attemptUpdateName($data))
             {
                 array_push($successes, 'Display name changed successfully');
             }
             else
             {
-                array_push($errors, User::$updateNameValidator->messages()->first());
+                array_push($errors, $user->updateNameValidator->messages()->first());
             }
         }
 
         // If the password has been changed
         if(Input::get('cur_password') != '' || Input::get('new_password') != '')
         {
-            if (User::attemptUpdatePassword($data))
+            if ($user->attemptUpdatePassword($data))
             {
                 array_push($successes, 'Password changed successfully');
             }
             else
             {
-                array_push($errors, User::$updatePasswordValidator->messages()->first());
+                array_push($errors, $user->updatePasswordValidator->messages()->first());
             }
         }
 
