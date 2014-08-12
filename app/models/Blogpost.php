@@ -46,7 +46,7 @@ class Blogpost extends Eloquent
         $post->title = $data['title'];
         $post->content = $data['content'];
         $post->tags = $data['tags'];
-        $post->deleted = $data['deleted'];
+        $post->deleted = (isset($data['deleted']) && $data['deleted']);
 
         $post->save();
 

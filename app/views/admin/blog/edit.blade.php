@@ -23,38 +23,34 @@
             {{ Form::open(array('action' => array('BlogAdminController@postPost', null))) }}
         @endif
 
-        <div class="form-group">
-        {{-- TITLE FIELD --}}
-        {{ Form::label('title', 'Title') }}
-        {{ Form::text('title', null, array('placeholder' => 'Title', 'class' => 'form-control')) }}
-        </div>
+            <div class="form-group">
+            {{-- TITLE FIELD --}}
+            {{ Form::label('title', 'Title') }}
+            {{ Form::text('title', null, array('placeholder' => 'Title', 'class' => 'form-control')) }}
+            </div>
 
-        <div class="form-group">
-        {{-- CONTENT FIELD --}}
-        {{ Form::label('content', 'Content') }}
-        {{ Form::textarea('content', null, array('class' => 'form-control')) }}
-        </div>
+            <div class="form-group">
+            {{-- CONTENT FIELD --}}
+            {{ Form::label('content', 'Content') }}
+            {{ Form::textarea('content', null, array('class' => 'form-control')) }}
+            </div>
 
-        <div class="form-group">
-        {{-- TAGS FIELD --}}
-        {{ Form::label('tags', 'Tags') }}
-        {{ Form::text('tags', null, array('title' => 'Separate tags with spaces', 'class' => 'form-control')) }}
-        </div>
+            <div class="form-group">
+            {{-- TAGS FIELD --}}
+            {{ Form::label('tags', 'Tags') }}
+            {{ Form::text('tags', null, array('title' => 'Separate tags with spaces', 'class' => 'form-control')) }}
+            </div>
 
-        <div class="form-group">
-        {{-- VISIBILITY --}}
-        {{ Form::label('deleted', 'Visibility') }}
-        {{ Form::select('deleted', array(
-            '0' => 'Visible',
-            '1' => 'Hidden',
-            ), isset($post) && $post->deleted ? '1' : '0'
-            , array('class' => 'form-control')) }}
-        </div>
+            <div class-"form-group">
+                <label>
+                    {{ Form::checkbox('deleted') }} Hidden?
+                </label>
+            </div>
 
-        {{ Form::reset('Reset', array('class' => 'btn btn-warning btn-block')) }}
-        {{ Form::submit('Submit', array('class' => 'btn btn-primary btn-block')) }}
+            {{ Form::submit('Submit', array('class' => 'btn btn-primary btn-block')) }}
+            {{ Form::reset('Reset', array('class' => 'btn btn-warning btn-block')) }}
 
-        <a href="{{ action('BlogAdminController@getIndex') }}" class="btn btn-warning btn-block">Cancel</a>
+            <a href="{{ action('BlogAdminController@getIndex') }}" class="btn btn-warning btn-block">Cancel</a>
 
         {{ Form::close() }}
     </div>

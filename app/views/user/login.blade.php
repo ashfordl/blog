@@ -30,9 +30,9 @@
             </div>
 
             <div class="form-group">
-            {{-- PERMANENT FIELD --}}
-            {{ Form::checkbox('permanent') }}
-            {{ Form::label('permanent', 'Remember me?') }}
+                <label>
+                    {{ Form::checkbox('permanent') }} Remember me?
+                </label>
             </div>
 
             {{ Form::submit('Log in', array('class' => 'btn btn-primary btn-block')) }}
