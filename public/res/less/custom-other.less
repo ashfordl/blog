@@ -1,11 +1,18 @@
 @import "../bootstrap/less/variables.less";
 @import "custom-variables.less";
 
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+@font-family-sans-serif: "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 .page-header {
     margin: 0px;
     padding-top: 10px;
     border-bottom: none;
     background: linear-gradient(to bottom, @brand-primary, @brand-primary 90%, @gray-darker);
+}
+
+.page-header h2 {
+    font-size: ceil((@font-size-h1 * 1.1));
 }
 
 .navbar {
