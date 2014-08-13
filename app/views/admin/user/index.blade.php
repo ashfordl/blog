@@ -5,14 +5,14 @@
 @stop
 
 @section('body')
-    <div class="col-md-8 col-lg-6">
+    <div class="col-md-8 col-lg-7">
         <h1>User Admin</h1>
 
         <h4>Users</h4>
         <table class="table table-hover">
             <tr>
                 <th>ID</th>
-                <th>Display Name <small>Click to view</small></th>
+                <th>Display Name</th>
                 <th>Email</th>
                 <th>Created At</th>
                 <th>Ban Status</th>

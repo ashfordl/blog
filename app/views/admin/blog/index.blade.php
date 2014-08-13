@@ -5,7 +5,7 @@
 @stop
 
 @section('body')
-    <div class="col-md-8 col-lg-6">
+    <div class="col-md-8 col-lg-7">
         <h1>Blog Admin</h1>
 
         <a href="{{ action('BlogAdminController@getPost') }}"><h4>Create post</h4></a>
@@ -14,7 +14,7 @@
         <table class="table table-hover">
             <tr>
                 <th>ID</th>
-                <th>Title <small>Click to edit</small></th>
+                <th>Title</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Link</th>
