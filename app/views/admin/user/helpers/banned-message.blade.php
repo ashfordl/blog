@@ -1,0 +1,1 @@
+This user is currently banned. The ban {{ $user->receivedBans()->get()->last()->isPermanent() ? 'is permanent.' : ' expires on '.$user->receivedBans()->get()->last()->end.'.' }} 
