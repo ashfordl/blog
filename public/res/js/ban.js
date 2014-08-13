@@ -7,6 +7,10 @@ function getLength() {
     return length;
 }
 
+function displayError() {
+    alert('An error occured and the request failed.');
+}
+
 $(document).ready(function() {
     $('#cancel-ban').click(function() {
         // POST data to invalidate the current ban
@@ -28,6 +32,7 @@ $(document).ready(function() {
             // Alert the user
             alert('Ban cancelled successfully');
         });
+        ajax.fail(displayError);
     });
 
     $('#extend-ban').click(function() {
@@ -54,5 +59,6 @@ $(document).ready(function() {
             // Alert the user
             alert('Ban extended successfully');
         });
+        ajax.fail(displayError);
     });
 });
