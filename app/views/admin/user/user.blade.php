@@ -26,45 +26,21 @@
 
         <h3>Bans</h3>
         @if ($user->isBanned())
-            <div class="panel panel-warning">
+            <div class="panel panel-warning" id="banned-panel">
                 <div class="panel-body clearfix">
-                    <span class="btn-centered">
-                        This user is currently banned. The ban {{ $user->receivedBans()->get()->last()->isPermanent() ? 'is permanent.' : ' expires on '.$user->receivedBans()->get()->last()->end.'.' }} 
+                    <span class="btn-centered" id="banned-message">
+                        @include('admin.user.helpers.banned-message')
                     </span>
                     <span class="pull-right">
-                        <a class="btn btn-warning">Cancel</a>
-                        <a class="btn btn-warning">Extend</a>
+                        <a class="btn btn-warning" id="cancel-ban">Cancel</a>
+                        <a class="btn btn-warning" id="extend-ban">Extend</a>
                     </span>
                 </div>
             </div>
+
+            <div id="ban-form"></div>
         @else
-            <h5>Ban this user</h5>
-            <div>
-                {{ Form::open(array('action' => array('UserAdminController@postBan'), 'class' => 'form-horizontal col-sm-5 col-lg-4')) }}
-                    @if(isset($errors))
-                        <span class="error">{{ $errors->first() }}</span>
-                    @endif
-
-                    {{-- ID of banned player --}}
-                    {{ Form::hidden('user', $user->id) }}
-
-                    <div class="form-group">
-                    {{-- DAYS FIELD --}}
-                    {{ Form::label('length', 'Length') }}
-                    {{ Form::text('length', '3', array('class' => 'form-control')) }}
-                    </div>
-
-                    <div class="form-group">
-                    {{-- COMMENT FIELD --}}
-                    {{ Form::label('comment', 'Comment') }}
-                    {{ Form::text('comment', null, array('placeholder' => 'Comment', 'class' => 'form-control')) }}
-                    </div>
-
-                    <div class="form-group">
-                    {{ Form::submit('Ban', array('class' => 'btn btn-danger btn-block')) }}
-                    </div>
-                {{ Form::close() }} 
-            </div>
+            <div id="ban-form">@include('admin.user.helpers.ban-form')</div>
         @endif
 
         @if (count($user->receivedBans()->get()) == 0)
@@ -94,4 +70,9 @@
         </div>
         @endif
     </div>
+@stop
+
+@section('js')
+    @include('jsvars.admin-user')
+    <script src="{{ asset('res/js/ban.js') }}"></script>
 @stop
