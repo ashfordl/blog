@@ -265,8 +265,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         $bans = $this->receivedBans()->valid()->get();
 
-        // var_dump($bans);
-
         foreach ($bans as $ban) 
         {
             if (new DateTime($ban->end) >= new DateTime())
@@ -276,6 +274,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         }
 
         return false;
+    }
+
+    public function getCurrentBan()
+    {
+        $bans = $this->receivedBans()->valid()->get();
+
+        foreach ($bans as $ban) 
+        {
+            if (new DateTime($ban->end) >= new DateTime())
+                return $ban;
+            if (is_null($ban->end))
+                return $ban;
+        }
     }
 
     public function receivedBans()
