@@ -80,4 +80,22 @@ class Ban extends Eloquent
     {
         return is_null($this->end);
     }
+
+    public function makePermanent()
+    {
+        $this->end = null;
+        $this->save();
+    }
+
+    public function extend($days)
+    {
+        if (is_null($this->end))
+            return;
+
+        $date = new DateTime($this->end);
+        $date->add(new DateInterval('P'.$days.'D'));
+
+        $this->end = $date;
+        $this->save();
+    }
 }
