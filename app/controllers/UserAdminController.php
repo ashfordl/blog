@@ -76,8 +76,17 @@ class UserAdminController extends BaseController
             $ban->valid = false;
             $ban->save();
 
-            return View::make('admin.user.helpers.ban-form')
-                ->with('user', User::find($data['user_id']));
+            $json = array(
+                'ban'=> array(
+                    'id' => $ban->id,
+                    'valid' => $ban->valid,
+                    'end' => $ban->end
+                ),
+                'html' => View::make('admin.user.helpers.ban-form')
+                    ->with('user', User::find($data['user_id']))->render()
+            );
+
+            return Response::json($json);
         }
 
         if ($data['action'] == 'extend')
@@ -87,8 +96,17 @@ class UserAdminController extends BaseController
             else
                 $ban->extend($data['length']);
 
-            return View::make('admin.user.helpers.banned-message')
-                ->with('user', User::find($data['user_id']));
+            $json = array(
+                'ban'=> array(
+                    'id' => $ban->id,
+                    'valid' => $ban->valid,
+                    'end' => $ban->end
+                ),
+                'html' => View::make('admin.user.helpers.banned-message')
+                    ->with('user', User::find($data['user_id']))->render()
+            );
+
+            return Response::json($json);
         }
     }
 }
