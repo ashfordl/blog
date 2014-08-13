@@ -45,4 +45,50 @@ class UserAdminController extends BaseController
                         ->withInput();
         }
     }
+
+    public function postUpdateBan()
+    {
+        $data = Input::all();
+        $rules = array(
+                'action'    =>  'required|in:cancel,extend',
+                'user_id'   =>  'exists:users,id',
+                'length'    =>  'required_if:action,extend|numeric|min:-1'
+            );
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails())
+        {
+            // If data is invalid, return status 400
+            return Response::make('Poor data', 400);
+        }
+
+        // The user to update
+        $ban = User::find($data['user_id'])->getCurrentBan();
+
+        if (is_null($ban))
+        {
+            // Specified user has no current bans, return status 400
+            return Response::make('User has no current bans', 400);
+        }
+
+        if ($data['action'] == 'cancel')
+        {
+            $ban->valid = false;
+            $ban->save();
+
+            return View::make('admin.user.helpers.ban-form')
+                ->with('user', User::find($data['user_id']));
+        }
+
+        if ($data['action'] == 'extend')
+        {
+            if ($data['length'] == -1)
+                $ban->makePermanent();
+            else
+                $ban->extend($data['length']);
+
+            return View::make('admin.user.helpers.banned-message')
+                ->with('user', User::find($data['user_id']));
+        }
+    }
 }
