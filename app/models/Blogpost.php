@@ -60,6 +60,11 @@ class Blogpost extends Eloquent
         return $query->where('deleted', '=', '0');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('Tag');
+    }
+
     /**
      * Returns a URL-safe string of the title
      *
