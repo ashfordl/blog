@@ -1,6 +1,6 @@
-<h5>Ban this user</h5>
-<div>
-    {{ Form::open(array('action' => array('UserAdminController@postBan'), 'class' => 'form-horizontal col-sm-5 col-lg-4')) }}
+<div class="col-sm-5 col-lg-4">
+    <h5>Ban this user</h5>
+    {{ Form::open(array('action' => array('UserAdminController@postBan'), 'class' => 'form-horizontal')) }}
         @if(isset($errors))
             <span class="error">{{ $errors->first() }}</span>
         @endif
