@@ -65,6 +65,11 @@ class Blogpost extends Eloquent
         return $this->belongsToMany('Tag');
     }
 
+    public function getCategory()
+    {
+        return Category::find($this->category_id);
+    }
+
     /**
      * Returns a URL-safe string of the title
      *
