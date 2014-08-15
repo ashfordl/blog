@@ -11,13 +11,13 @@
         <table class="table">
             <tr>
                 <th>Title</th>
-                {{-- <th>Category</th> --}}
+                <th>Category</th>
                 <th>Published</th>
             </tr>
             @foreach($posts as $post)
                 <tr>
                     <td><a href="{{ action('BlogController@getPost', array($post->id, $post->getTitleURLString())) }}">{{{ $post->title }}}</a></td>
-                    {{-- <td>{{ $post->category }}</td> --}}
+                    <td>{{{ $post->getCategory()->title }}}</td>
                     <td>{{ $post->created_at }}</td>
                 </tr>
             @endforeach

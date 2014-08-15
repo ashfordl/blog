@@ -15,6 +15,7 @@
             <tr>
                 <th>ID</th>
                 <th>Title</th>
+                <th>Category</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Link</th>
@@ -23,6 +24,7 @@
             <tr>
                 <td>{{{ $post->id }}}</td>
                 <td><a href="{{ action('BlogAdminController@getPost', array($post->id)) }}">{{{ $post->title }}}</a></td>
+                <td>{{{ $post->getCategory()->title }}}</td>
                 <td>{{{ $post->created_at }}}</td>
                 <td>{{{ $post->deleted ? 'Hidden' : 'Visible' }}}</td>
                 
