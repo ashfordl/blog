@@ -99,3 +99,14 @@ require app_path().'/validators.php';
 |
 */
 require app_path().'/exceptions.php';
+
+/*
+|--------------------------------------------------------------------------
+| Require The Blade Macros File
+|--------------------------------------------------------------------------
+|
+| This file contains any custom Balde macros
+|
+*/
+require app_path().'/blade.php';
+
