@@ -17,10 +17,7 @@ Route::pattern('id', '\d+');
 // GET / Redirect Index
 Route::get('', array(
     'as' => 'home',
-    function()
-    {
-	   return Redirect::action('BlogController@getIndex');
-    }
+    'uses' => 'BlogController@getIndex'
 ));
 
 // REST blog/* All blog related actions
@@ -44,3 +41,6 @@ Route::controller('admin/blog', 'BlogAdminController');
 
 // REST admin/user/* User admin actions
 Route::controller('admin/user', 'UserAdminController');
+
+// REST admin/categories/* Category admin actions
+Route::controller('admin/categories', 'CategoryAdminController');
