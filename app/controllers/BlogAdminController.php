@@ -26,12 +26,14 @@ class BlogAdminController extends BaseController
             $titleURL = $post->getTitleURLString();
             if ($title != $titleURL)
             {
+                Session::reflash();
                 return Redirect::action('BlogAdminController@getPost', array($id, $titleURL));
             }
         }
 
         return View::make('admin.blog.edit')
-                ->with('post', $post);
+                ->with('post', $post)
+                ;//->with('errors', Session::has('errors') ? Session::get('errors') : null);
     }
 
     public function postPost($id = null)
@@ -42,7 +44,7 @@ class BlogAdminController extends BaseController
         }
         else
         {
-            return Redirect::action('BlogAdminController@getPost')
+            return Redirect::action('BlogAdminController@getPost', array($id))
                 ->withErrors(Blogpost::$postValidator)
                 ->withInput();
         }

@@ -23,6 +23,14 @@
             {{ Form::open(array('action' => array('BlogAdminController@postPost', null))) }}
         @endif
 
+            @if(isset($errors) && $errors->first() != "")
+                <div class="panel panel-danger">
+                    <div class="panel-body">
+                        {{ $errors->first() }}
+                    </div>
+                </div>
+            @endif
+
             <div class="form-group">
             {{-- TITLE FIELD --}}
             {{ Form::label('title', 'Title') }}
@@ -36,9 +44,9 @@
             </div>
 
             <div class="form-group">
-            {{-- TAGS FIELD --}}
-            {{ Form::label('tags', 'Tags') }}
-            {{ Form::text('tags', null, array('title' => 'Separate tags with spaces', 'class' => 'form-control')) }}
+            {{-- CATEGORY FIELD --}}
+            {{ Form::label('category', 'Category') }}
+            {{ Form::selectCategory('category', isset($post) ? $post->getCategory()->id : null, array('class' => 'form-control')) }}
             </div>
 
             <div class="checkbox">

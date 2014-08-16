@@ -9,7 +9,8 @@ class Blogpost extends Eloquent
      */
     protected static $postRules = array(
             'title' => 'required|max:255',
-            'content' => 'required|max:1048576'
+            'content' => 'required|max:1048576',
+            'category' => 'required|exists:categories,id'
         );
 
     public static $postValidator;
@@ -19,7 +20,7 @@ class Blogpost extends Eloquent
      *
      * @return bool
      */
-    public static function attemptPost($data, $id)
+    public static function attemptPost($data, $id = null)
     {
         // Validate input
         $validator = Validator::make($data, Blogpost::$postRules);
@@ -31,21 +32,15 @@ class Blogpost extends Eloquent
             return false;
         }
 
-        // Valid input
         // Modify / create the post appropriately
-        $post;
-        if (is_null($id))
-        {
+        $post = Blogpost::find($id);
+
+        if (is_null($post)) // In case the id is bogus
             $post = new Blogpost();
-        }
-        else
-        {
-            $post = Blogpost::find($id);
-        }
 
         $post->title = $data['title'];
         $post->content = $data['content'];
-        $post->tags = $data['tags'];
+        $post->category_id = $data['category'];
         $post->deleted = (isset($data['deleted']) && $data['deleted']);
 
         $post->save();
