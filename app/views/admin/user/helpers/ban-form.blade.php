@@ -1,8 +1,12 @@
 <div class="col-sm-5 col-lg-4">
-    <h5>Ban this user</h5>
+    <h5 class="no-column-gap">Ban this user</h5>
     {{ Form::open(array('action' => array('UserAdminController@postBan'), 'class' => 'form-horizontal')) }}
         @if(isset($errors))
-            <span class="error">{{ $errors->first() }}</span>
+            <div class="panel panel-danger input-block-level no-column-gap">
+                <div class="panel-body">
+                    {{ $errors->first() }}
+                </div>
+            </div>
         @endif
 
         {{-- ID of banned player --}}
