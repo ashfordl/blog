@@ -26,5 +26,6 @@
 @stop
 
 @section('js')
+    @include('jsvars.admin-blog-categories')
     <script src="{{ asset('res/js/categories.js') }}"></script>
 @stop

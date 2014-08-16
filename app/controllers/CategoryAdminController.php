@@ -15,4 +15,9 @@ class CategoryAdminController extends BaseController
         return View::make('admin.blog.categories.index')
             ->with('categories', $categories);
     }
+
+    public function postEdit()
+    {
+        
+    }
 }
