@@ -32,8 +32,7 @@ class BlogAdminController extends BaseController
         }
 
         return View::make('admin.blog.edit')
-                ->with('post', $post)
-                ;//->with('errors', Session::has('errors') ? Session::get('errors') : null);
+                ->with('post', $post);
     }
 
     public function postPost($id = null)
