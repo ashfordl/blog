@@ -51,7 +51,7 @@ class UserAdminController extends BaseController
         $data = Input::all();
         $rules = array(
                 'action'    =>  'required|in:cancel,extend',
-                'user_id'   =>  'exists:users,id',
+                'user_id'   =>  'required|exists:users,id',
                 'length'    =>  'required_if:action,extend|numeric|min:-1'
             );
         $validator = Validator::make($data, $rules);
