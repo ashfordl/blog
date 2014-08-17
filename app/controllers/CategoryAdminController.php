@@ -29,7 +29,7 @@ class CategoryAdminController extends BaseController
         if ($validator->fails())
         {
             // If data is invalid, return status 400
-            return Response::make($valdiator->errors()->first(), 400);
+            return Response::make($validator->errors()->first(), 400);
         }
 
         // The category to update

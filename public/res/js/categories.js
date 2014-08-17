@@ -48,30 +48,48 @@ $(document).ready(function() {
         // Make the AJAX call to the server
         var ajax = $.post(postUrl, data);
         ajax.done(function() {
+            // Remove the form
             var par = btn.parent().parent();
             par.empty();
+
+            // Display the updated text
             par.text(val);
 
+            // Alert the user
             alert("Category successfully updated.");
 
+            // Remove the editing class
             par.removeClass('editing');
 
         });
-        ajax.fail(function() {
-            alert("An error occured.")
+        ajax.fail(function(jqxhr, txt, err) {
+            // If there is a validation error, display it
+            if (jqxhr.status == 400) {
+                alert(jqxhr.responseText);
+            }
+            // Else it's an application/net error
+            else {
+                alert("An error occured.");
+            }
 
+            // Allow the user to try again
             btn.siblings('textarea').attr("disabled", null);
         });
     });
 
     // When cancel button pressed
     $('tr').on('click', 'form button.cancel-update-cat', function(e) {
+        // Retrieve the original value
         var val = $(this).siblings('input[type=hidden]').val();
         
+        // Remove the form
         var par = $(this).parent().parent();
         par.empty();
+
+        // Display the original text
         par.text(val);
 
+        // Remove the editing class
         par.removeClass('editing');
     });
 });
