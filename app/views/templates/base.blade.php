@@ -44,8 +44,10 @@
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ action('BlogAdminController@getIndex') }}">Blog</a></li>
-                                    <li><a href="{{ action('UserAdminController@getIndex') }}">User</a></li>
+                                    <li><a href="{{ action('BlogAdminController@getIndex') }}">Posts</a></li>
+                                    <li><a href="{{ action('CategoryAdminController@getIndex') }}">Categories</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ action('UserAdminController@getIndex') }}">Users</a></li>
                                 </ul>
                             </li>
                         @endif
