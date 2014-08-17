@@ -52,7 +52,7 @@ $(document).ready(function() {
             par.empty();
             par.text(val);
 
-            alert("success");
+            alert("Category successfully updated.");
 
             par.removeClass('editing');
 

@@ -18,6 +18,36 @@ class CategoryAdminController extends BaseController
 
     public function postEdit()
     {
-        
+        $data = Input::all();
+        $rules = array(
+                'id'    => 'required|exists:categories,id',
+                'title' => 'required_without:description|max:255',
+                'description'   => 'required_without:title|max:255',
+            );
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails())
+        {
+            // If data is invalid, return status 400
+            return Response::make($valdiator->errors()->first(), 400);
+        }
+
+        // The category to update
+        $category = Category::find($data['id']);
+
+        // Update the title, if present
+        if (isset($data['title'])) {
+            $category->title = $data['title'];
+        }
+
+        // Update the description, if present
+        if (isset($data['description'])) {
+            $category->description = $data['description'];
+        }
+
+        // Save the changes
+        $category->save();
+
+        return $category;
     }
 }
