@@ -5,9 +5,10 @@
 @stop
 
 @section('body')
-    <div class="col-md-8 col-lg-7">
-        <h1>Categories</h1>
+    <h1>Categories</h1>
 
+    <div class="col-md-8 col-lg-6">
+        <h3>Edit categories</h3>
         <table class="table table-hover">
             <tr>
                 <th>ID</th>
@@ -22,6 +23,34 @@
             </tr>
         @endforeach
         </table>
+    </div>
+
+    <div class="col-md-8 col-lg-6">
+        <h3>Create new category</h3>
+        {{ Form::open(array('action' => 'CategoryAdminController@postNew')) }}
+
+            @if(isset($errors) && $errors->first() != "")
+                <div class="panel panel-danger">
+                    <div class="panel-body">
+                        {{ $errors->first() }}
+                    </div>
+                </div>
+            @endif
+
+            <div class="form-group">
+            {{-- TITLE FIELD --}}
+            {{ Form::label('title', 'Title') }}
+            {{ Form::text('title', null, array('placeholder' => 'Title', 'class' => 'form-control')) }}
+            </div>
+
+            <div class="form-group">
+            {{-- TITLE FIELD --}}
+            {{ Form::label('description', 'Description') }}
+            {{ Form::textarea('description', null, array('class' => 'form-control')) }}
+            </div>
+
+            {{ Form::submit('Submit', array('class' => 'btn btn-primary btn-block')) }}
+        {{ Form::close() }}
     </div>
 @stop
 

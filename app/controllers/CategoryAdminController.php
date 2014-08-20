@@ -16,6 +16,11 @@ class CategoryAdminController extends BaseController
             ->with('categories', $categories);
     }
 
+    public function postNew()
+    {
+        
+    }
+
     public function postEdit()
     {
         $data = Input::all();
