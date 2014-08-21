@@ -18,7 +18,18 @@ class CategoryAdminController extends BaseController
 
     public function postNew()
     {
-        
+        if (Category::attemptNew(Input::all()))
+        {
+            // Creation successful
+            return Redirect::action('CategoryAdminController@getIndex');
+        }
+        else
+        {
+            // Creation unsuccessful
+            return Redirect::action('CategoryAdminController@getIndex')
+                        ->withErrors(Category::$newValidator)
+                        ->withInput();
+        }
     }
 
     public function postEdit()

@@ -46,7 +46,7 @@
             <div class="form-group">
             {{-- TITLE FIELD --}}
             {{ Form::label('description', 'Description') }}
-            {{ Form::textarea('description', null, array('class' => 'form-control')) }}
+            {{ Form::textarea('description', null, array('class' => 'form-control', 'rows' => '3')) }}
             </div>
 
             {{ Form::submit('Submit', array('class' => 'btn btn-primary btn-block')) }}
