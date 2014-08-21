@@ -46,7 +46,7 @@
             <div class="form-group">
             {{-- CATEGORY FIELD --}}
             {{ Form::label('category', 'Category') }}
-            {{ Form::selectCategory('category', isset($post) ? $post->getCategory()->id : null, array('class' => 'form-control')) }}
+            {{ Form::selectCategory('category', isset($post) ? is_null($post->getCategory()) ? null : $post->getCategory()->id : null, array('class' => 'form-control')) }}
             </div>
 
             <div class="checkbox">

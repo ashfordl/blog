@@ -16,7 +16,7 @@
         </div>
 
         <div class="well well-sm clearfix">
-            <span class="pull-left">Category: {{{ $post->getCategory()->title }}}</span>
+            <span class="pull-left">Category: {{{ is_null($post->getCategory()) ? "No category" : $post->getCategory()->title }}}</span>
             <span class="pull-right">{{ $post->created_at }}</span>
         </div>
     @else

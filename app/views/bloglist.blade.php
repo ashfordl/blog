@@ -17,7 +17,7 @@
             @foreach($posts as $post)
                 <tr>
                     <td><a href="{{ action('BlogController@getPost', array($post->id, $post->getTitleURLString())) }}">{{{ $post->title }}}</a></td>
-                    <td>{{{ $post->getCategory()->title }}}</td>
+                    <td>{{{ is_null($post->getCategory()) ? "No category" : $post->getCategory()->title }}}</td>
                     <td>{{ $post->created_at }}</td>
                 </tr>
             @endforeach

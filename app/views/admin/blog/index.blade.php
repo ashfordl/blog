@@ -24,7 +24,7 @@
             <tr>
                 <td>{{{ $post->id }}}</td>
                 <td><a href="{{ action('BlogAdminController@getPost', array($post->id)) }}">{{{ $post->title }}}</a></td>
-                <td>{{{ $post->getCategory()->title }}}</td>
+                <td>{{{ is_null($post->getCategory()) ? "No category" : $post->getCategory()->title }}}</td>
                 <td>{{{ $post->created_at }}}</td>
                 <td>{{{ $post->deleted ? 'Hidden' : 'Visible' }}}</td>
                 
