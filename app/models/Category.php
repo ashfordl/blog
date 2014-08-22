@@ -14,6 +14,8 @@ class Category extends Eloquent
                 'description'   => 'max:255',
             );
 
+    public static $newValidator;
+
     public static function attemptNew($data)
     {
         // Validate input
