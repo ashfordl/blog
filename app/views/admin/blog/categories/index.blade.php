@@ -14,12 +14,14 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th class="text-right">Delete</th>
             </tr>
         @foreach($categories as $category)
             <tr>
-                <td>{{ $category->id }}</td>
-                <td class="editable">{{{ $category->title }}}</td>
-                <td class="editable">{{{ $category->description }}}</td>
+                <td><span class="btn-centered">{{ $category->id }}</span></td>
+                <td class="editable"><span class="btn-centered">{{{ $category->title }}}</span></td>
+                <td class="editable"><span class="btn-centered">{{{ $category->description }}}</span></td>
+                <td class="text-right"><button class="btn btn-warning" type="button"><span class="glyphicon glyphicon-remove"></span></button></td>
             </tr>
         @endforeach
         </table>

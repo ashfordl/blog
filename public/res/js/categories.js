@@ -3,7 +3,7 @@ function removeEditingField(text, parent) {
     parent.empty();
 
     // Display the original text
-    parent.text(text);
+    parent.html('<span class="btn-centered">'+text+'</span>');
 
     // Remove the editing class
     parent.removeClass('editing');
