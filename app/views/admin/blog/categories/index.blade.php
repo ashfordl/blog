@@ -17,11 +17,11 @@
                 <th class="text-right">Delete</th>
             </tr>
         @foreach($categories as $category)
-            <tr>
+            <tr data-category-id="{{ $category->id }}">
                 <td><span class="btn-centered">{{ $category->id }}</span></td>
                 <td class="editable"><span class="btn-centered">{{{ $category->title }}}</span></td>
                 <td class="editable"><span class="btn-centered">{{{ $category->description }}}</span></td>
-                <td class="text-right"><button class="btn btn-warning" type="button"><span class="glyphicon glyphicon-remove"></span></button></td>
+                <td class="text-right"><button class="btn btn-warning js-delete-category" type="button"><span class="glyphicon glyphicon-remove"></span></button></td>
             </tr>
         @endforeach
         </table>

@@ -66,4 +66,33 @@ class CategoryAdminController extends BaseController
 
         return $category;
     }
+
+    public function postDelete()
+    {
+        $data = Input::all();
+        $rules = array(
+                'id'    => 'required|exists:categories,id'
+            );
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails())
+        {
+            // If data is invalid, return status 400
+            return Response::make("Bad request", 400);
+        }
+
+        // Unset category_id on Blogposts
+        foreach(Blogpost::where('category_id', $data['id'])->get() as $post)
+        {
+
+            $post->category_id = null;
+            $post->save();
+        }
+
+        // Delete the model
+        Category::destroy($data['id']);
+
+        // Return success (200)
+        return Response::make("Category deleted", 200);
+    }
 }

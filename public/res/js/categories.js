@@ -14,7 +14,7 @@ function postEdit(val, btn, td) {
     var data = {
         "_token": csrf,
         "id": td.siblings(':first').text()
-    }
+    };
 
     // Find the header text of the cell's column
     // Use this as a key in the JSON data, and set the input val as the value
@@ -96,5 +96,35 @@ $(document).ready(function() {
         // Remove the form
         var par = $(this).parent().parent();
         removeEditingField(val, par);
+    });
+
+    $('.js-delete-category').click(function(e) {
+        // Find the parent row
+        var row = $(this).parent().parent();
+
+        // Find the category id
+        var id = row.data('categoryId');
+
+        // Create the AJAX data array
+        var data = {
+            "_token": csrf,
+            "id": id
+        };
+
+        // Create the AJAX call
+        var ajax = $.post(deleteUrl, data);
+        // Upon success
+        ajax.done(function() {
+            // Remove the row
+            row.remove();
+
+            // Alert the user
+            alert("Category deleted successfully.");
+        });
+        // Upon failure
+        ajax.fail(function() {
+            // Alert the user
+            alert("An error occured.");
+        });
     });
 });
