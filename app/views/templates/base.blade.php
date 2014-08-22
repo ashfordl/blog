@@ -17,7 +17,9 @@
     @yield('head')
 </head>
 <body>
-    <div class="container-fluid page-header"><h2>Blog Title</h2></div>
+    <div class="container-fluid page-header">
+        <h2 class="page-title">Blog Title</h2>
+    </div>
 
     {{-- NAVBAR --}}
     <nav class="navbar navbar-default" role="navigation">

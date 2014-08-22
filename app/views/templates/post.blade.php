@@ -6,12 +6,12 @@
         {{-- Leading and trailing paragraph tags are required for leading and trailing paragraphs respectively --}}
         <p>{{ str_replace(array("\n","\r\n"), "</p><p>", e($post->content)) }}</p>
 
-        <div class="forceheight" id="post-navlinks">
+        <div class="forceheight">
             @if(isset($prev))
-                <a class="pull-left" href="{{ action('BlogController@getPost', array($prev->id, $prev->getTitleURLString())) }}">&larr; Previous</a>
+                <a class="pull-left spaced-bottom" href="{{ action('BlogController@getPost', array($prev->id, $prev->getTitleURLString())) }}">&larr; Previous</a>
             @endif
             @if(isset($next))
-                <a class="pull-right" href="{{ action('BlogController@getPost', array($next->id, $next->getTitleURLString())) }}">Next &rarr;</a>
+                <a class="pull-right spaced-bottom" href="{{ action('BlogController@getPost', array($next->id, $next->getTitleURLString())) }}">Next &rarr;</a>
             @endif
         </div>
 

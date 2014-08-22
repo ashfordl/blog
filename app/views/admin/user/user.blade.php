@@ -62,8 +62,8 @@
                     <td class="hidden">{{ $ban->id }}</td>
                     <td>{{{ $ban->issuer->display_name }}}</td>
                     <td>{{ $ban->start }}</td>
-                    <td class="ban-end">{{ isset($ban->end) ? $ban->end : 'Permanent' }}</td>
-                    <td class="ban-valid">{{ $ban->valid ? 'Valid' : 'Invalid' }}</td>
+                    <td>{{ isset($ban->end) ? $ban->end : 'Permanent' }}</td>
+                    <td>{{ $ban->valid ? 'Valid' : 'Invalid' }}</td>
                     <td>{{{ $ban->comment }}}</td>
                 </tr>
             @endforeach
