@@ -1,0 +1,39 @@
+/*              *\
+ *  #HEADER     *
+\*              */
+
+.page-header {
+    margin: 0px;
+    padding-top: 10px;
+    border-bottom: none;
+    // Adds a fade to gray to the bottom of the header
+    background: linear-gradient(to bottom, @brand-primary, @brand-primary 90%, @gray-darker);
+}
+
+    .page-header h2 {
+        font-size: ceil((@font-size-h1 * 1.1));
+    }
+
+
+
+
+
+/*              *\
+ *  #NAVBAR     *
+\*              */
+
+.navbar {
+    border: none;
+    margin-bottom: 0px;
+}
+
+    .navbar:after {
+        height: 15px;
+        width:  100%;
+        // Adds a  fade to black to the bottom of the navbar
+        background: linear-gradient(to top, @body-bg, @gray-darker 80%, @gray-dark);
+    }
+
+    .navbar li a:active {
+        text-decoration: underline;
+    }

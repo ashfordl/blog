@@ -1,69 +1,45 @@
-@import url(http://fonts.googleapis.com/css?family=Ubuntu);
-@font-family-sans-serif: "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
+/*              *\
+ *  #FONTS      * 
+\*              */
 
-.page-header {
-    margin: 0px;
-    padding-top: 10px;
-    border-bottom: none;
-    background: linear-gradient(to bottom, @brand-primary, @brand-primary 90%, @gray-darker);
-}
+@import "fonts.less";
 
-.page-header h2 {
-    font-size: ceil((@font-size-h1 * 1.1));
-}
 
-.navbar {
-    border: none;
-    margin-bottom: 0px;
-}
 
-.navbar:after {
-    height: 15px;
-    width: 100%;
-    background: linear-gradient(to top, @body-bg, @gray-darker 80%, @gray-dark);
-}
 
-.navbar li a:active {
-    text-decoration: underline;
-}
 
-form textarea {
-    resize: vertical;
-}
+/*                          *\
+ *  #HEADER     #NAVBAR     *
+\*                          */
 
-form.form-inline textarea.form-control {
-    width: 67%;
-    resize: horizontal;
-}
+@import "header.less";
 
-.bg-primary, .bg-success, .bg-info, .bg-warning, .bg-danger {
-    padding: 10px;
-}
 
-.btn-centered {
-    position: relative;
-    top: 7px;
-}
 
-.thin-sides-margin {
-    margin-left: 0px;
-    margin-right: 0px;
-}
 
-.thin-sides-padding {
-    padding-left: 0px;
-    padding-right: 0px;
-}
 
-.no-column-gap {
-    margin-left: -15px;
-    margin-right: -15px;
-}
+/*                          *\
+ *  #FORMS     #CONTROLS    *
+\*                          */
 
-.forceheight {
-    overflow: hidden;
-}
+@import "forms.less";
 
-#post-navlinks {
-    margin-bottom: 5px;
-}
+
+
+
+
+/*                      *\
+ *  #HELPER CLASSES     *
+\*                      */
+
+@import "helpers.less";
+
+
+
+
+
+/*                      *\
+ *  #SPECIFIC STYLES    *
+\*                      */
+
+@import "specifics.less";

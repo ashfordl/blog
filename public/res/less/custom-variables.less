@@ -1,12 +1,29 @@
-// Heading font sizes
+/*              *\
+ *  #HEADINGS   *
+\*              */
+
 @font-size-h4: ceil((@font-size-base * 1.5));
 @font-size-h5: ceil((@font-size-base * 1.25));
 @font-size-h6: @font-size-base;
 
-// Typography
+
+
+
+
+/*              *\
+ *  #FONT PATH  *
+\*              */
+
 @icon-font-path: "../bootstrap/fonts/";
 
-// Colors
+
+
+
+
+/*          *\
+ *  #COLORS *
+\*          */
+
 @brand-primary: #d05f17;
 @brand-success: #00bb40;
 @brand-info:    #707070;
@@ -20,49 +37,91 @@
 @gray-dark:     #252525;
 @gray-darker:   #151515;
 
-@body-bg:       @gray;
-@text-color:    @gray-lightest;
+@body-bg:           @gray;
+@text-color:        @gray-lightest;
 @link-hover-color:  lighten(@link-color, 7.5%);
 
-// Tables
+
+
+
+
+/*              *\
+ *  #TABLES     *
+\*              */
+
 @table-bg-accent:       @gray-dark;
 @table-bg-hover:        @gray-light;
 @table-border-color:    @gray-lighter;
 
-// Buttons
+
+
+
+
+/*              *\
+ *  #BUTTONS    *
+\*              */
+
 @btn-default-color:     @text-color;
 @btn-default-bg:        @body-bg;
 @btn-default-border:    @gray-dark;
 
-// Inputs
-@input-bg:          @gray-darker;
-@input-bg-disabled: @gray-light;
-@input-color:       @gray-lightest;
-@input-border:      @gray-lighter;
+
+
+
+
+/*              *\
+ *  #INPUTS     *
+\*              */
+
+@input-bg:                  @gray-darker;
+@input-bg-disabled:         @gray-light;
+@input-color:               @gray-lightest;
+@input-border:              @gray-lighter;
 @input-border-focus:        @brand-primary;
 @input-color-placeholder:   @gray-lighter;
 @input-group-addon-bg:      @gray-dark;
 
-// Navbar
-@navbar-border-radius:      0px;
-@navbar-default-color:      @gray-lighter;
-@navbar-default-bg:         @gray-dark;
+
+
+
+
+/*              *\
+ *  #NAVBAR     *
+\*              */
+
+@navbar-border-radius:              0px;
+@navbar-default-color:              @gray-lighter;
+@navbar-default-bg:                 @gray-dark;
 @navbar-default-link-color:         lighten(@navbar-default-color, 5%);
 @navbar-default-link-hover-color:   lighten(@navbar-default-link-color, 12.5%);
 @navbar-default-link-active-color:  @navbar-default-link-hover-color;
 
-// Dropdowns
-@dropdown-bg: @body-bg;
-@dropdown-fallback-border:  @gray-darker;
-@dropdown-divider-bg:       @gray-darker;
-@dropdown-link-color:       @navbar-default-link-color;
-@dropdown-link-hover-color: @navbar-default-link-hover-color;
-@dropdown-link-hover-bg:    lighten(@dropdown-bg, 5%);
+
+
+
+
+/*              *\
+ *  #DROPDOWNS  *
+\*              */
+
+@dropdown-bg:                   @body-bg;
+@dropdown-fallback-border:      @gray-darker;
+@dropdown-divider-bg:           @gray-darker;
+@dropdown-link-color:           @navbar-default-link-color;
+@dropdown-link-hover-color:     @navbar-default-link-hover-color;
+@dropdown-link-hover-bg:        lighten(@dropdown-bg, 5%);
 @dropdown-link-active-color:    @dropdown-link-hover-color;
 
-// States
-@state-success-bg:  @brand-success;
-@state-info-bg:     @brand-info;
+
+
+
+
+/*              *\
+ *  #STATES     *
+\*              */
+
+@state-success-bg:      @brand-success;
+@state-info-bg:         @brand-info;
 @state-warning-bg:      @brand-warning;
 @state-warning-border:  @brand-warning;
 @state-danger-bg:       @brand-danger;
@@ -73,12 +132,26 @@
 @state-warning-text:    @gray-lighter;
 @state-danger-text:     @gray-lighter;
 
-// Panels
-@panel-bg:  @gray-dark;
+
+
+
+
+/*              *\
+ *  #PANELS     *
+\*              */
+
+@panel-bg:              @gray-dark;
 @panel-default-text:    @gray-lighter;
 @panel-default-border:  @gray-darker;
 @panel-primary-text:    @panel-default-text;
 
-// Wells
-@well-bg:   @gray-dark;
+
+
+
+
+/*              *\
+ *  #WELLS      *
+\*              */
+
+@well-bg:       @gray-dark;
 @well-border:   darken(@well-bg, 2.5%);
