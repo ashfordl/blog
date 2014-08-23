@@ -46,4 +46,25 @@ class BlogController extends BaseController {
                 ->with('next', $post->next())
                 ->with('prev', $post->prev());
     }
+
+    public function getCategory($id, $title="")
+    {
+        $category = Category::find($id);
+
+        // If fail, abort
+        if (is_null($category))
+        {
+            App::abort(404);
+        }
+
+        // Append the title to the URL
+        $titleURL = $category->getTitleURLString();
+        if ($title != $titleURL)
+        {
+            return Redirect::action('BlogController@getCategory', array($id, $titleURL));
+        }
+
+        return View::make('blog.category')
+                ->with('category', $category);
+    }
 }

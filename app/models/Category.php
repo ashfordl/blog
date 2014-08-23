@@ -36,4 +36,15 @@ class Category extends Eloquent
 
         return true;
     }
+    
+    /**
+     * Returns a URL-safe string of the title
+     *
+     * @return string
+     */
+    public function getTitleURLString()
+    {
+        return preg_replace('/^-+|-+$/', '', strtolower(
+            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
+    }
 }
