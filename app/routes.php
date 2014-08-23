@@ -25,16 +25,6 @@ Route::controller('blog', 'BlogController');
 
 // REST user/* All user related actions
 Route::controller('user', 'UserController');
-
-// GET admin Admin home page
-Route::get('admin', array(
-    'as' => 'admin',
-    'before' => 'admin',
-    function ()
-    {
-        return View::make('admin.index');
-    }
-));
     
 // REST admin/blog/* Blog admin actions
 Route::controller('admin/blog', 'BlogAdminController');
