@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Display custom error messages for select errors
+ */
+
 App::error(function($exception, $code)
 {
     switch ($code)
@@ -10,9 +14,7 @@ App::error(function($exception, $code)
         case 404:
             return Response::view('errors.404', array(), 404);
 
-        // case 500:
-        //     return Response::view('errors.500', array(), 500);
-
+        // Else return null, allow Laravel to continue with default error handlers
         default:
             return null;
     }
