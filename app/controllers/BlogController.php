@@ -19,7 +19,7 @@ class BlogController extends BaseController {
                         ->get()
                         ->reverse();
 
-        return View::make('bloglist')
+        return View::make('blog.bloglist')
                 ->with('posts', $posts);
     }
 
@@ -41,7 +41,7 @@ class BlogController extends BaseController {
             return Redirect::action('BlogController@getPost', array($id, $titleURL));
         }
 
-        return View::make('blogpost')
+        return View::make('blog.blogpost')
                 ->with('post', $post)
                 ->with('next', $post->next())
                 ->with('prev', $post->prev());
