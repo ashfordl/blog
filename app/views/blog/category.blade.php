@@ -6,7 +6,10 @@
 
 @section('body')
     <div class="post col-md-8 col-lg-6">
-        <h1>{{{ $category->title }}} <small>{{ count($posts) }} {{ count($posts) === 1 ? 'post' : 'posts' }}</small></h1>
+        <h1>
+            <span>{{{ $category->title }}}</span>
+            <small class="spaced-left">{{ count($posts) }} {{ count($posts) === 1 ? 'post' : 'posts' }}</small>
+        </h1>
 
         <p><strong>{{{ $category->description }}}</strong></p>
 
