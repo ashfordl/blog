@@ -65,6 +65,7 @@ class BlogController extends BaseController {
         }
 
         return View::make('blog.category')
-                ->with('category', $category);
+                ->with('category', $category)
+                ->with('posts', $category->blogposts);
     }
 }
