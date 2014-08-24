@@ -38,8 +38,17 @@
             <div class="collapse navbar-collapse" id="navbar-content">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('home') }}">Blog</a></li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            @foreach (Category::all() as $category)
+                                <li><a href="{{ action('BlogController@getCategory', array($category->id)) }}">{{{ $category->title }}}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
                     <li><a href="{{ action('BlogController@getList') }}">Archive</a></li>
                 </ul>
+
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
                         @if (Auth::user()->isAdmin())
