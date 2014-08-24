@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Renders a category select dropdown
+ * 
+ * $name        string  The name for the <select> element
+ * $default_id  integer The id for the default selected option
+ * $attrs       array   An array of html attribute key/values for the <select> element
+ */
 Form::macro('selectCategory', function($name = null, $default_id = null, $attrs = array())
 {
     // Echo select tag

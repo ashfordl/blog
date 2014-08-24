@@ -10,7 +10,6 @@
             <span>{{{ $category->title }}}</span>
             <small class="spaced-left">{{ count($posts) }} {{ count($posts) === 1 ? 'post' : 'posts' }}</small>
         </h1>
-
         <p><strong>{{{ $category->description }}}</strong></p>
 
         @include('templates.postlist')
