@@ -1,5 +1,3 @@
-{{-- Must include a $posts variable containing the posts to display --}}
-
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         <li>
