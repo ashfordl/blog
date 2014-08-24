@@ -10,7 +10,7 @@ class Blogpost extends Eloquent
     protected static $postRules = array(
             'title' => 'required|max:255',
             'content' => 'required|max:1048576',
-            'category' => 'required|exists:categories,id'
+            'category' => 'numeric'
         );
 
     public static $postValidator;
@@ -40,8 +40,17 @@ class Blogpost extends Eloquent
 
         $post->title = $data['title'];
         $post->content = $data['content'];
-        $post->category_id = $data['category'];
         $post->deleted = (isset($data['deleted']) && $data['deleted']);
+
+        // If "no category" is selected, or a non-existant value is given
+        if ($data['category'] == 0 || null === Category::find($data['category']))
+        {
+            $post->category_id = null;
+        }
+        else
+        {
+            $post->category_id = $data['category'];
+        }
 
         $post->save();
 

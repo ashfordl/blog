@@ -18,8 +18,14 @@ Form::macro('selectCategory', function($name = null, $default_id = null, $attrs 
     echo ">";
 
     // Echo options
-    if (is_null($default_id))
-        echo "<option value=\"\" disabled selected>Select a category</option>";
+
+    // Echo no category option
+    echo "<option value=\"0\" ";
+    if (is_null($default_id))   // If no selected id, default to No Category
+        echo "selected";
+    echo ">No category</option>";
+
+    // Echo category option
     foreach (Category::all() as $category)
     {
         echo "<option value=\"$category->id\"";
