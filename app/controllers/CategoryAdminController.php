@@ -81,14 +81,6 @@ class CategoryAdminController extends BaseController
             return Response::make("Bad request", 400);
         }
 
-        // Unset category_id on Blogposts
-        foreach(Blogpost::where('category_id', $data['id'])->get() as $post)
-        {
-
-            $post->category_id = null;
-            $post->save();
-        }
-
         // Delete the model
         Category::destroy($data['id']);
 
