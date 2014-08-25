@@ -64,10 +64,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         }
 
         $loginData = array('email' => $data['email'], 'password' => $data['password']);
+        $rememberMe = (isset($data['permanent']) && $data['permanent']);
 
         // Input is valid, attempt auth
-        if (Auth::attempt($loginData,
-                (isset($data['permanent']) && $data['permanent']) ))
+        if (Auth::attempt($loginData, $rememberMe))
         {
             if (Auth::user()->isBanned())
             {
