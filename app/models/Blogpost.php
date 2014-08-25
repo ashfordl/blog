@@ -49,7 +49,7 @@ class Blogpost extends Eloquent
         }
         else
         {
-            $post->category_id = $data['category'];
+            $post = Category::find($data['category'])->blogposts()->save($post);
         }
 
         $post->save();
