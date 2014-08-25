@@ -29,34 +29,43 @@ class Ban extends Eloquent
     {
         // Validate input
         $validator = Validator::make($data, Ban::$banRules);
+        Ban::$banValidator = $validator;
 
         if ($validator->fails())
         {
             // Invalid input
-            Ban::$banValidator = $validator;
             return false;
         }
         else
-        {
+        { 
             // Create a new ban
             $ban = new Ban();
-            $ban->user = $data['user'];
-            $ban->issued_by = Auth::user()->id;
+
+            // Set start time to now
             $ban->start = new DateTime();
+
+            // Set end time to permanent (null), or now+x
             if ($data['length'] == '-1')
                 $ban->end = null;
             else
             {
-                $now = new DateTime();
-                $now->add(new DateInterval('P'.$data['length'].'D'));
+                $endDate = new DateTime();
+                $endDate->add(new DateInterval('P'.$data['length'].'D'));
 
-                $ban->end = $now;
+                $ban->end = $endDate;
             }
+
+            // Set the comment
             $ban->comment = $data['comment'];
+
+            // Set the user and issuer foreign keys
+            $user = User::find($data['user']);
+            $ban->issuer()->associate(Auth::user());
+            $ban = $user->receivedBans()->save($ban);
+
             $ban->save();
 
-            // Set validator
-            Ban::$banValidator = $validator;
+            // Ban successful
             return true;
         }
     }
