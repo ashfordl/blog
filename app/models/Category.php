@@ -2,12 +2,51 @@
 
 class Category extends Eloquent
 {
+
+/**                   **/
+/** LARAVEL VARIABLES **/
+/**                   **/
+
     public $timestamps = false;
+
+
+
+
+
+/**               **/
+/** RELATIONSHIPS **/
+/**               **/
 
     public function blogposts()
     {
         return $this->hasMany('Blogpost');
     }
+    
+
+
+
+
+/**            **/
+/** PROPERTIES **/
+/**            **/
+
+    /**
+     * Returns a URL-safe string of the title
+     *
+     * @return string
+     */
+    public function getTitleURLString()
+    {
+        return preg_replace('/^-+|-+$/', '', strtolower(
+            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
+    }
+
+
+
+
+/**            **/
+/** VALIDATION **/
+/**            **/
 
     public static $newRules = array(
                 'title'         => 'max:255',
@@ -35,16 +74,5 @@ class Category extends Eloquent
         $category->save();
 
         return true;
-    }
-    
-    /**
-     * Returns a URL-safe string of the title
-     *
-     * @return string
-     */
-    public function getTitleURLString()
-    {
-        return preg_replace('/^-+|-+$/', '', strtolower(
-            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
     }
 }

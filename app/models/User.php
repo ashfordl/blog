@@ -3,7 +3,141 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Eloquent implements UserInterface, RemindableInterface 
+{
+
+/**                   **/
+/** LARAVEL VARIABLES **/
+/**                   **/
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = array('password');
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Get the e-mail address where password reminders are sent.
+     *
+     * @return string
+     */
+    public function getReminderEmail()
+    {
+        return $this->email;
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
+
+
+
+
+
+/**               **/
+/** RELATIONSHIPS **/
+/**               **/
+
+    public function receivedBans()
+    {
+        return $this->hasMany('Ban', 'user');
+    }
+
+    public function issuedBans()
+    {
+        return $this->hasMany('Ban', 'issued_by');
+    }
+
+
+
+
+
+/**            **/
+/** PROPERTIES **/
+/**            **/
+
+    public function isAdmin()
+    {
+        if ($this->id == 1)
+            return true;
+        return false;
+    }
+
+    public function isBanned()
+    {
+        $bans = $this->receivedBans()->valid()->get();
+
+        foreach ($bans as $ban) 
+        {
+            if (new DateTime($ban->end) >= new DateTime())
+                return true;
+            if (is_null($ban->end))
+                return true;
+        }
+
+        return false;
+    }
+
+    public function getCurrentBan()
+    {
+        $bans = $this->receivedBans()->valid()->get();
+
+        foreach ($bans as $ban) 
+        {
+            if (new DateTime($ban->end) >= new DateTime())
+                return $ban;
+            if (is_null($ban->end))
+                return $ban;
+        }
+    }
+
+
+
+
+
+/**            **/
+/** VALIDATION **/
+/**            **/
+
     /**
      * The validation rules to login.
      *
@@ -12,36 +146,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     protected static $loginRules = array(
             'email'     => 'max:255|email|required',
             'password'  => 'min:5|required'
-        );
-
-    /**
-     * The validation rules to register.
-     *
-     * @var array
-     */
-    protected static $regRules = array(
-            'name'      => 'max:255|required|regex:/^[a-zA-Z0-9- _]*$/',
-            'email'     => 'max:255|email|required|confirmed|unique:users,email',
-            'password'  => 'min:5|required|confirmed'
-        );
-
-    /**
-     * The validation rules to update the name.
-     *
-     * @var array
-     */
-    protected static $nameRules = array(
-            'name'  => 'max:255|min:2|regex:/^[a-zA-Z0-9- _]*$/'
-        );
-
-    /**
-     * The validation rules to update the password.
-     *
-     * @var array
-     */
-    protected static $passRules = array(
-            'cur_password'  => 'passcheck|required',
-            'new_password'  => 'required|min:5|confirmed'
         );
 
     public static $bannedUser = null;
@@ -85,6 +189,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * The validation rules to register.
+     *
+     * @var array
+     */
+    protected static $regRules = array(
+            'name'      => 'max:255|required|regex:/^[a-zA-Z0-9- _]*$/',
+            'email'     => 'max:255|email|required|confirmed|unique:users,email',
+            'password'  => 'min:5|required|confirmed'
+        );
+
+    /**
      * The validator last used to register a user.
      *
      * @var Validator
@@ -126,6 +241,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * The validation rules to update the name.
+     *
+     * @var array
+     */
+    protected static $nameRules = array(
+            'name'  => 'max:255|min:2|regex:/^[a-zA-Z0-9- _]*$/'
+        );
+
+    /**
      * The validator last used to update the user's name.
      *
      * @var Validator
@@ -161,6 +285,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * The validation rules to update the password.
+     *
+     * @var array
+     */
+    protected static $passRules = array(
+            'cur_password'  => 'passcheck|required',
+            'new_password'  => 'required|min:5|confirmed'
+        );
+
+    /**
      * The validator last used to update the user's password.
      *
      * @var Validator
@@ -193,109 +327,5 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $this->updatePasswordValidator = $validator;
             return false;
         }
-    }
-
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password');
-
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
-	public function getAuthIdentifier()
-	{
-		return $this->getKey();
-	}
-
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
-	public function getAuthPassword()
-	{
-		return $this->password;
-	}
-
-	/**
-	 * Get the e-mail address where password reminders are sent.
-	 *
-	 * @return string
-	 */
-	public function getReminderEmail()
-	{
-		return $this->email;
-	}
-
-    public function getRememberToken()
-    {
-        return $this->remember_token;
-    }
-
-    public function setRememberToken($value)
-    {
-        $this->remember_token = $value;
-    }
-
-    public function getRememberTokenName()
-    {
-        return 'remember_token';
-    }
-
-    public function isAdmin()
-    {
-        if ($this->id == 1)
-            return true;
-        return false;
-    }
-
-    public function isBanned()
-    {
-        $bans = $this->receivedBans()->valid()->get();
-
-        foreach ($bans as $ban) 
-        {
-            if (new DateTime($ban->end) >= new DateTime())
-                return true;
-            if (is_null($ban->end))
-                return true;
-        }
-
-        return false;
-    }
-
-    public function getCurrentBan()
-    {
-        $bans = $this->receivedBans()->valid()->get();
-
-        foreach ($bans as $ban) 
-        {
-            if (new DateTime($ban->end) >= new DateTime())
-                return $ban;
-            if (is_null($ban->end))
-                return $ban;
-        }
-    }
-
-    public function receivedBans()
-    {
-        return $this->hasMany('Ban', 'user');
-    }
-
-    public function issuedBans()
-    {
-        return $this->hasMany('Ban', 'issued_by');
     }
 }

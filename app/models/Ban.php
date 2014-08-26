@@ -2,6 +2,81 @@
 
 class Ban extends Eloquent
 {
+
+/**               **/
+/** RELATIONSHIPS **/
+/**               **/
+
+    public function user()
+    {
+        return $this->belongsTo('User', 'user');
+    }
+
+    public function issuer()
+    {
+        return $this->belongsTo('User', 'issued_by');
+    }
+
+
+
+
+
+/**              **/
+/** QUERY SCOPES **/
+/**              **/
+
+     public function scopeValid($query)
+    {
+        return $query->where('valid', '=', '1');
+    }
+
+
+
+
+
+/**            **/
+/** PROPERTIES **/
+/**            **/
+
+    public function isPermanent()
+    {
+        return is_null($this->end);
+    }
+
+
+
+
+
+/**         **/
+/** ACTIONS **/
+/**         **/
+
+    public function makePermanent()
+    {
+        $this->end = null;
+        $this->save();
+    }
+
+    public function extend($days)
+    {
+        if (is_null($this->end))
+            return;
+
+        $date = new DateTime($this->end);
+        $date->add(new DateInterval('P'.$days.'D'));
+
+        $this->end = $date;
+        $this->save();
+    }
+
+
+
+
+
+/**            **/
+/** VALIDATION **/
+/**            **/
+
     /**
      * The validation rules to create a new ban.
      *
@@ -68,43 +143,5 @@ class Ban extends Eloquent
             // Ban successful
             return true;
         }
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('User', 'user');
-    }
-
-    public function issuer()
-    {
-        return $this->belongsTo('User', 'issued_by');
-    }
-
-     public function scopeValid($query)
-    {
-        return $query->where('valid', '=', '1');
-    }
-
-    public function isPermanent()
-    {
-        return is_null($this->end);
-    }
-
-    public function makePermanent()
-    {
-        $this->end = null;
-        $this->save();
-    }
-
-    public function extend($days)
-    {
-        if (is_null($this->end))
-            return;
-
-        $date = new DateTime($this->end);
-        $date->add(new DateInterval('P'.$days.'D'));
-
-        $this->end = $date;
-        $this->save();
     }
 }

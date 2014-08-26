@@ -2,6 +2,89 @@
 
 class Blogpost extends Eloquent
 {
+
+/**               **/
+/** RELATIONSHIPS **/
+/**               **/
+
+    public function tags()
+    {
+        return $this->belongsToMany('Tag');
+    }
+
+
+
+
+
+/**              **/
+/** QUERY SCOPES **/
+/**              **/
+
+    public function scopeVisible($query)
+    {
+        return $query->where('deleted', '=', '0');
+    }
+
+
+
+
+
+/**            **/
+/** PROPERTIES **/
+/**            **/
+
+
+    public function getCategory()
+    {
+        return Category::find($this->category_id);
+    }
+
+    /**
+     * Returns a URL-safe string of the title
+     *
+     * @return string
+     */
+    public function getTitleURLString()
+    {
+        return preg_replace('/^-+|-+$/', '', strtolower(
+            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
+    }
+
+
+
+
+
+/**              **/
+/** MODEL ACCESS **/
+/**              **/
+    /**
+     * Returns the next visible blogpost by ID
+     *
+     * @return Blogpost
+     */
+    public function next()
+    {
+        return Blogpost::visible()->where('id', '>', $this->id)->orderBy('id')->first();
+    }
+
+    /**
+     * Returns the previous visible blogpost by ID
+     *
+     * @return Blogpost
+     */
+    public function prev()
+    {
+        return Blogpost::visible()->where('id', '<', $this->id)->orderBy('id', 'desc')->first();
+    }
+
+
+
+
+
+/**            **/
+/** VALIDATION **/
+/**            **/
+
     /**
      * The validation rules for a blog post.
      *
@@ -57,51 +140,5 @@ class Blogpost extends Eloquent
         // Set validator
         Blogpost::$postValidator = $validator;
         return true;
-    }
-
-    public function scopeVisible($query)
-    {
-        return $query->where('deleted', '=', '0');
-    }
-
-    public function tags()
-    {
-        return $this->belongsToMany('Tag');
-    }
-
-    public function getCategory()
-    {
-        return Category::find($this->category_id);
-    }
-
-    /**
-     * Returns a URL-safe string of the title
-     *
-     * @return string
-     */
-    public function getTitleURLString()
-    {
-        return preg_replace('/^-+|-+$/', '', strtolower(
-            preg_replace('/[^a-zA-Z0-9]+/', '-', substr($this->title, 0, 40))));
-    }
-
-    /**
-     * Returns the next visible blogpost by ID
-     *
-     * @return Blogpost
-     */
-    public function next()
-    {
-        return Blogpost::visible()->where('id', '>', $this->id)->orderBy('id')->first();
-    }
-
-    /**
-     * Returns the previous visible blogpost by ID
-     *
-     * @return Blogpost
-     */
-    public function prev()
-    {
-        return Blogpost::visible()->where('id', '<', $this->id)->orderBy('id', 'desc')->first();
     }
 }
