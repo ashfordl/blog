@@ -7,6 +7,9 @@ class Category extends Eloquent
 /** LARAVEL VARIABLES **/
 /**                   **/
 
+    /**
+     * {@inheritDoc}
+     */
     public $timestamps = false;
 
 
@@ -17,6 +20,11 @@ class Category extends Eloquent
 /** RELATIONSHIPS **/
 /**               **/
 
+    /**
+     * The relationship Category has many Blogpost.
+     *
+     * @return HasMany
+     */
     public function blogposts()
     {
         return $this->hasMany('Blogpost');
@@ -31,7 +39,7 @@ class Category extends Eloquent
 /**            **/
 
     /**
-     * Returns a URL-safe string of the title
+     * A URL-safe string of the title.
      *
      * @return string
      */
@@ -48,13 +56,28 @@ class Category extends Eloquent
 /** VALIDATION **/
 /**            **/
 
+    /**
+     * The validation rules to create a new category.
+     *
+     * @var array
+     */
     public static $newRules = array(
                 'title'         => 'max:255',
                 'description'   => 'max:255',
             );
 
+    /**
+     * The validator last used to create a category.
+     *
+     * @var Validator
+     */
     public static $newValidator;
 
+    /**
+     * Attempts to create a new category.
+     *
+     * @return bool
+     */
     public static function attemptNew($data)
     {
         // Validate input

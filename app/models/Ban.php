@@ -7,11 +7,29 @@ class Ban extends Eloquent
 /** RELATIONSHIPS **/
 /**               **/
 
+    /**
+     * The inverse relationship User has many Ban.
+     *
+     * This relationship reperesents the user that received the ban.
+     * The issuer() relationship represents the admin that handed out
+     * the ban.
+     *
+     * @return BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('User', 'user');
     }
 
+    /**
+     * The inverse relationship User has many Ban.
+     *
+     * This relationship reperesents the admin that handed out 
+     * the ban. The user() relationship represents the user that
+     * received the ban.
+     *
+     * @return BelongsTo
+     */
     public function issuer()
     {
         return $this->belongsTo('User', 'issued_by');
@@ -25,6 +43,9 @@ class Ban extends Eloquent
 /** QUERY SCOPES **/
 /**              **/
 
+    /**
+     * A scope to select only valid bans.
+     */
      public function scopeValid($query)
     {
         return $query->where('valid', '=', '1');
@@ -38,6 +59,11 @@ class Ban extends Eloquent
 /** PROPERTIES **/
 /**            **/
 
+    /**
+     * Whether the current ban is permanent.
+     *
+     * @return bool
+     */
     public function isPermanent()
     {
         return is_null($this->end);
@@ -51,12 +77,20 @@ class Ban extends Eloquent
 /** ACTIONS **/
 /**         **/
 
+    /**
+     * Forces the ban to become permanent.
+     */
     public function makePermanent()
     {
         $this->end = null;
         $this->save();
     }
 
+    /**
+     * Extends the ban's end date by the specified number of days.
+     *
+     * @param int $days
+     */
     public function extend($days)
     {
         if (is_null($this->end))

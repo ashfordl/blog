@@ -7,6 +7,11 @@ class Blogpost extends Eloquent
 /** RELATIONSHIPS **/
 /**               **/
 
+    /**
+     * The relationship Blogpost belongs to many Tag.
+     *
+     * @return BelongsToMany
+     */
     public function tags()
     {
         return $this->belongsToMany('Tag');
@@ -20,6 +25,9 @@ class Blogpost extends Eloquent
 /** QUERY SCOPES **/
 /**              **/
 
+    /**
+     * A scope to select only non-deleted posts.
+     */
     public function scopeVisible($query)
     {
         return $query->where('deleted', '=', '0');
@@ -33,14 +41,18 @@ class Blogpost extends Eloquent
 /** PROPERTIES **/
 /**            **/
 
-
+    /**
+     * The post's category.
+     *
+     * @return Category
+     */
     public function getCategory()
     {
         return Category::find($this->category_id);
     }
 
     /**
-     * Returns a URL-safe string of the title
+     * A URL-safe string of the title.
      *
      * @return string
      */
@@ -57,8 +69,9 @@ class Blogpost extends Eloquent
 /**              **/
 /** MODEL ACCESS **/
 /**              **/
+
     /**
-     * Returns the next visible blogpost by ID
+     * The next visible blogpost, by ID.
      *
      * @return Blogpost
      */
@@ -68,7 +81,7 @@ class Blogpost extends Eloquent
     }
 
     /**
-     * Returns the previous visible blogpost by ID
+     * The previous visible blogpost, by ID
      *
      * @return Blogpost
      */

@@ -77,11 +77,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 /** RELATIONSHIPS **/
 /**               **/
 
+    /**
+     * The relationship User has many Ban.
+     *
+     * This relationship reperesents the bans the user has received.
+     * The issuedBans() relationship represents the bans the user has
+     * dealt as an admin.
+     *
+     * @return HasMany
+     */
     public function receivedBans()
     {
         return $this->hasMany('Ban', 'user');
     }
 
+    /**
+     * The relationship User has many Ban.
+     *
+     * This relationship reperesents the bans the user has issued.
+     * The receivedBans() relationship represents the bans the user
+     * has received themselves.
+     *
+     * @return HasMany
+     */
     public function issuedBans()
     {
         return $this->hasMany('Ban', 'issued_by');
@@ -95,6 +113,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 /** PROPERTIES **/
 /**            **/
 
+    /**
+     * Whether the user is an admin.
+     *
+     * @return bool
+     */
     public function isAdmin()
     {
         if ($this->id == 1)
@@ -102,6 +125,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return false;
     }
 
+    /**
+     * Whether the user is currently banned.
+     *
+     * @return bool
+     */
     public function isBanned()
     {
         $bans = $this->receivedBans()->valid()->get();
@@ -117,6 +145,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return false;
     }
 
+    /**
+     * The Ban instance of the user's current ban.
+     *
+     * @return Ban
+     */
     public function getCurrentBan()
     {
         $bans = $this->receivedBans()->valid()->get();
@@ -148,6 +181,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface
             'password'  => 'min:5|required'
         );
 
+    /**
+     * This variable is set only if the last user to attempt login with valid
+     * input is currently banned.
+     *
+     * If the last login attempt was successful (and the user was not banned)
+     * this will be set to null. If the user was banned, this will be that instance
+     * of User.
+     *
+     * If a validation error occurs, this will be set to null.
+     *
+     * @var User
+     */
     public static $bannedUser = null;
 
     /**

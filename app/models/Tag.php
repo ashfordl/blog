@@ -7,6 +7,9 @@ class Tag extends Eloquent
 /** LARAVEL VARIABLES **/
 /**                   **/
 
+    /**
+     * {@inheritDoc}
+     */
     public $timestamps = false;
 
 
@@ -16,6 +19,12 @@ class Tag extends Eloquent
 /**               **/
 /** RELATIONSHIPS **/
 /**               **/
+
+    /**
+     * The relationship Tag belongs to many Blogpost.
+     *
+     * @return HasMany
+     */
     public function blogposts()
     {
         return $this->belongsToMany('Blogpost');
