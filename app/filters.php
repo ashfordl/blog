@@ -84,7 +84,6 @@ Route::filter('csrf', function()
  *
  * Checks that the user is both logged in, and is an admin
  */
-
 Route::filter('admin', function()
 {
     if (!(Auth::check() && Auth::user()->isAdmin()))

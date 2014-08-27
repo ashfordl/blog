@@ -3,7 +3,6 @@
 /**
  * Display custom error messages for select errors
  */
-
 App::error(function($exception, $code)
 {
     switch ($code)
