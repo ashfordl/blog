@@ -17,6 +17,16 @@ class Blogpost extends Eloquent
         return $this->belongsToMany('Tag');
     }
 
+    /**
+     * The relationship Blogpost has many Comment.
+     *
+     * @return HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('Comment');
+    }
+
 
 
 

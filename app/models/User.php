@@ -63,6 +63,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return $this->hasMany('Ban', 'issued_by');
     }
 
+    /**
+     * The relationship User has many Comment.
+     *
+     * @return HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('Comment');
+    }
+
 
 
 

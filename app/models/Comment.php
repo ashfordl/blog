@@ -10,7 +10,7 @@ class Comment extends Eloquent
     /**
      * The inverse relationship Blogpost has many Comment.
      *
-     * @return HasMany
+     * @return BelongsTo
      */
     public function blogpost()
     {
@@ -20,7 +20,7 @@ class Comment extends Eloquent
     /**
      * The inverse relationship User has many Comment.
      *
-     * @return HasMany
+     * @return BelongsTo
      */
     public function user()
     {
