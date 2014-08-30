@@ -45,8 +45,19 @@ class BlogController extends BaseController {
                 ->with('post', $post);
     }
 
-    public function getCategory($catId, $postId, $title = "")
+    public function getCategory($catId, $postId = "", $title = "")
     {
+        /* Tests if the $postId variable is numeric.
+         *
+         * If true, then it should render a blogpost with navlinks restricted to that category
+         *
+         * If false, then it should render the category hub page
+         *
+         * This is a hacky way to have both hub pages and posts under the same /blog/category URL.
+         * It works because category title's may not be numeric, and therefore if the second
+         * argument is numeric it can only be the blogpost's ID.
+         *
+         */
         if (is_numeric($postId))
         {
             return $this->displayPostWithCategory($catId, $postId, $title);
