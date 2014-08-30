@@ -42,12 +42,35 @@ class BlogController extends BaseController {
         }
 
         return View::make('blog.blogpost')
-                ->with('post', $post)
-                ->with('next', $post->next())
-                ->with('prev', $post->prev());
+                ->with('post', $post);
     }
 
-    public function getCategory($id, $title="")
+    public function getCategory($catId, $postId, $title = "")
+    {
+        $category = Category::find($catId);
+
+        $post = Blogpost::visible()
+                        ->find($postId);
+
+        // If fail, abort
+        if (is_null($category) || is_null($post))
+        {
+            App::abort(404);
+        }
+
+        // Append the title to the URL
+        $titleURL = $post->getTitleURLString();
+        if ($title != $titleURL)
+        {
+            return Redirect::action('BlogController@getPost', array($catId, $postId, $titleURL));
+        }
+
+        return View::make('blog.blogpost')
+                ->with('category', $category)
+                ->with('post', $post);
+    }
+
+    public function getCategories($id, $title="")
     {
         $category = Category::find($id);
 
@@ -61,7 +84,7 @@ class BlogController extends BaseController {
         $titleURL = $category->getTitleURLString();
         if ($title != $titleURL)
         {
-            return Redirect::action('BlogController@getCategory', array($id, $titleURL));
+            return Redirect::action('BlogController@getCategories', array($id, $titleURL));
         }
 
         return View::make('blog.category')

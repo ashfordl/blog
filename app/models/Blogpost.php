@@ -85,9 +85,16 @@ class Blogpost extends Eloquent
      *
      * @return Blogpost
      */
-    public function next()
+    public function next($categoryId = -1)
     {
-        return Blogpost::visible()->where('id', '>', $this->id)->orderBy('id')->first();
+        $next = Blogpost::visible()->where('id', '>', $this->id);
+
+        if ($categoryId != -1)
+        {
+            $next = $next->where('category_id', $categoryId);
+        }
+
+        return $next->orderBy('id')->first();
     }
 
     /**
@@ -95,9 +102,16 @@ class Blogpost extends Eloquent
      *
      * @return Blogpost
      */
-    public function prev()
+    public function prev($categoryId = -1)
     {
-        return Blogpost::visible()->where('id', '<', $this->id)->orderBy('id', 'desc')->first();
+        $next = Blogpost::visible()->where('id', '<', $this->id);
+
+        if ($categoryId != -1)
+        {
+            $next = $next->where('category_id', $categoryId);
+        }
+
+        return $next->orderBy('id', 'desc')->first();
     }
 
 

@@ -5,5 +5,5 @@
 @stop
 
 @section('body')
-    @include('templates.post')
+    @include('templates.post', array('navLinks' => true))
 @stop
