@@ -47,6 +47,18 @@ class BlogController extends BaseController {
 
     public function getCategory($catId, $postId, $title = "")
     {
+        if (is_numeric($postId))
+        {
+            return $this->displayPostWithCategory($catId, $postId, $title);
+        }
+        else
+        {
+            return $this->displayCategoryHome($catId, $postId);
+        }
+    }
+
+    protected function displayPostWithCategory($catId, $postId, $title)
+    {
         $category = Category::find($catId);
 
         $post = Blogpost::visible()
@@ -62,7 +74,7 @@ class BlogController extends BaseController {
         $titleURL = $post->getTitleURLString();
         if ($title != $titleURL)
         {
-            return Redirect::action('BlogController@getPost', array($catId, $postId, $titleURL));
+            return Redirect::action('BlogController@getCategory', array($catId, $postId, $titleURL));
         }
 
         return View::make('blog.blogpost')
@@ -70,7 +82,7 @@ class BlogController extends BaseController {
                 ->with('post', $post);
     }
 
-    public function getCategories($id, $title="")
+    protected function displayCategoryHome($id, $title)
     {
         $category = Category::find($id);
 
@@ -84,11 +96,11 @@ class BlogController extends BaseController {
         $titleURL = $category->getTitleURLString();
         if ($title != $titleURL)
         {
-            return Redirect::action('BlogController@getCategories', array($id, $titleURL));
+            return Redirect::action('BlogController@getCategory', array($id, $titleURL));
         }
 
         return View::make('blog.category')
                 ->with('category', $category)
-                ->with('posts', $category->blogposts()->visible()->get());
+                ->with('posts', $category->blogposts()->visible()->get()->reverse());
     }
 }

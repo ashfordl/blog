@@ -42,7 +42,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             @foreach (Category::all() as $category)
-                                <li><a href="{{ action('BlogController@getCategories', array($category->id, $category->getTitleURLString())) }}">{{{ $category->title }}}</a></li>
+                                <li><a href="{{ action('BlogController@getCategory', array($category->id, $category->getTitleURLString())) }}">{{{ $category->title }}}</a></li>
                             @endforeach
                         </ul>
                     </li>

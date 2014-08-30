@@ -29,7 +29,7 @@ class Category extends Eloquent
     {
         return $this->hasMany('Blogpost');
     }
-    
+
 
 
 
@@ -63,7 +63,7 @@ class Category extends Eloquent
      */
     public static $newRules = array(
                 'title'         => 'max:255',
-                'description'   => 'max:255',
+                'description'   => 'max:255|not:numeric',
             );
 
     /**

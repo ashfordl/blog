@@ -1,6 +1,6 @@
 <?php
 
-class CategoryAdminController extends BaseController 
+class CategoryAdminController extends BaseController
 {
     public function __construct()
     {
@@ -37,7 +37,7 @@ class CategoryAdminController extends BaseController
         $data = Input::all();
         $rules = array(
                 'id'    => 'required|exists:categories,id',
-                'title' => 'required_without:description|max:255',
+                'title' => 'required_without:description|max:255|not:numeric',
                 'description'   => 'required_without:title|max:255',
             );
         $validator = Validator::make($data, $rules);
