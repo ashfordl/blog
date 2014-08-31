@@ -52,8 +52,8 @@ Blade::extend(function($view, $compiler)
     $pattern = $compiler->createMatcher('bbcode');
 
     return preg_replace($pattern, '$1<p><?php echo '.
-            'str_replace(array("[b]"), "<b>", '.
+            'str_replace(array("[b]"), "<b>", '.    // Match [b] and [/b]
             'str_replace(array("[/b]"), "</b>", '.
-            'str_replace(array("\n","\r\n", "\n\n", "\r\n\r\n"), "</p><p>", '.
+            'str_replace(array("\n","\r\n", "\n\n", "\r\n\r\n"), "</p><p>", '.  // Replace new lines with <p>
         'e($2) ))); ?></p>', $view);
 });
