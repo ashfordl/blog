@@ -2,7 +2,7 @@
 
 /**
  * Renders a category select dropdown
- * 
+ *
  * @param string    $name           The name for the <select> element
  * @param int       $default_id     The id for the default selected option
  * @param array     $attrs          An array of html attribute key/values for the <select> element
@@ -37,4 +37,23 @@ Form::macro('selectCategory', function($name = null, $default_id = null, $attrs 
     }
 
     echo "</select>";
+});
+
+/**
+ * Parses the custom BBCode used for user-generated content
+ *
+ * @param $view The view to parse
+ * @param $compiler The Blade compiler
+ *
+ * @return string
+ */
+Blade::extend(function($view, $compiler)
+{
+    $pattern = $compiler->createMatcher('bbcode');
+
+    return preg_replace($pattern, '$1<p><?php echo '.
+            'str_replace(array("[b]"), "<b>", '.
+            'str_replace(array("[/b]"), "</b>", '.
+            'str_replace(array("\n","\r\n", "\n\n", "\r\n\r\n"), "</p><p>", '.
+        'e($2) ))); ?></p>', $view);
 });

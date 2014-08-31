@@ -14,7 +14,7 @@
                 <th style="width: 35px;">ID</th>
                 <th style="width: 33%">Title</th>
                 <th style="width: 67%">Description</th>
-                <th class="text-right" style="width: 66px;">Delete</th>
+                <th style="width: 66px;" class="text-right">Delete</th>
             </tr>
         @foreach($categories as $category)
             <tr data-category-id="{{ $category->id }}">
