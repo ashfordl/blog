@@ -37,7 +37,7 @@ class CategoryAdminController extends BaseController
         $data = Input::all();
         $rules = array(
                 'id'    => 'required|exists:categories,id',
-                'title' => 'required_without:description|max:255|not:numeric',
+                'title' => 'required_without:description|max:255|regex:/\D/',
                 'description'   => 'required_without:title|max:255',
             );
         $validator = Validator::make($data, $rules);

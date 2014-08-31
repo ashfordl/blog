@@ -62,8 +62,8 @@ class Category extends Eloquent
      * @var array
      */
     public static $newRules = array(
-                'title'         => 'max:255',
-                'description'   => 'max:255|not:numeric',
+                'title'         => 'max:255|regex:/\D/',
+                'description'   => 'max:255',
             );
 
     /**
