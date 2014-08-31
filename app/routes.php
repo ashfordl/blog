@@ -25,7 +25,7 @@ Route::controller('blog', 'BlogController');
 
 // REST user/* All user related actions
 Route::controller('user', 'UserController');
-    
+
 // REST admin/blog/* Blog admin actions
 Route::controller('admin/blog', 'BlogAdminController');
 
