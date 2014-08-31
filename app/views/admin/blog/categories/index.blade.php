@@ -5,16 +5,16 @@
 @stop
 
 @section('body')
-    <h1>Categories</h1>
-
     <div class="col-md-8 col-lg-6">
+        <h1>Categories</h1>
+
         <h3>Edit categories</h3>
-        <table class="table table-hover">
+        <table class="table table-hover table-fixed">
             <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th class="text-right">Delete</th>
+                <th style="width: 35px;">ID</th>
+                <th style="width: 33%">Title</th>
+                <th style="width: 67%">Description</th>
+                <th class="text-right" style="width: 66px;">Delete</th>
             </tr>
         @foreach($categories as $category)
             <tr data-category-id="{{ $category->id }}">
