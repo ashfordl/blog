@@ -37,7 +37,7 @@ class Comment extends Eloquent
      */
     public function parent()
     {
-        return $this->belongsTo('Comment');
+        return $this->belongsTo('Comment', 'parent_id');
     }
 
     /**
@@ -50,6 +50,6 @@ class Comment extends Eloquent
      */
     public function children()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('Comment', 'parent_id');
     }
 }
