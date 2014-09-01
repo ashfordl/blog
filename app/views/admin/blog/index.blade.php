@@ -5,6 +5,7 @@
 @stop
 
 @section('body')
+<div class="row">
     <div class="col-md-8 col-lg-7">
         <h1>Blog Admin</h1>
 
@@ -27,13 +28,14 @@
                 <td>{{{ is_null($post->getCategory()) ? "No category" : $post->getCategory()->title }}}</td>
                 <td>{{{ $post->created_at }}}</td>
                 <td>{{{ $post->deleted ? 'Hidden' : 'Visible' }}}</td>
-                
+
                 <td>@if (!$post->deleted)
                     <a href="{{ action('BlogController@getPost', array($post->id, $post->getTitleURLString())) }}">View</a>
                 @endif </td>
-                
+
             </tr>
         @endforeach
         </table>
     </div>
+</div>
 @stop

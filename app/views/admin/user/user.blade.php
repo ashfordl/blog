@@ -5,24 +5,27 @@
 @stop
 
 @section('body')
+<div class="row">
     <div class="col-md-8 col-lg-6">
-        <h1>User Admin - {{{ $user->display_name }}}</h1>
+        <div class="row"><div class="col-xs-12">
+            <h1>User Admin - {{{ $user->display_name }}}</h1>
 
-        <h3>User Info</h3>
-        <table class="table table-condensed">
-            <tr>
-                <th>ID</th>
-                <th>Display Name</th>
-                <th>E-Mail</th>
-                <th>Created At</th>
-            </tr>
-            <tr>
-                <td>{{{ $user->id }}}</td>
-                <td>{{{ $user->display_name }}}</td>
-                <td>{{{ $user->email }}}</td>
-                <td>{{{ $user->created_at }}}</td>
-            </tr>
-        </table>
+            <h3>User Info</h3>
+            <table class="table table-condensed">
+                <tr>
+                    <th>ID</th>
+                    <th>Display Name</th>
+                    <th>E-Mail</th>
+                    <th>Created At</th>
+                </tr>
+                <tr>
+                    <td>{{{ $user->id }}}</td>
+                    <td>{{{ $user->display_name }}}</td>
+                    <td>{{{ $user->email }}}</td>
+                    <td>{{{ $user->created_at }}}</td>
+                </tr>
+            </table>
+        </div></div>
 
         <h3>Bans</h3>
         @if ($user->isBanned())
@@ -38,39 +41,49 @@
                 </div>
             </div>
 
-            <div id="ban-form"></div>
+            <div class="row">
+                <div id="ban-form"></div>
+
         @else
-            <div id="ban-form">@include('admin.user.helpers.ban-form')</div>
+            <div class="row">
+                <div id="ban-form">@include('admin.user.helpers.ban-form')</div>
         @endif
 
         @if (count($user->receivedBans()->get()) == 0)
-            <div class="col-sm-offset-1 col-sm-6 col-lg-7 panel panel-info">
-                <div class="panel-body">This user has received no bans.</div>
+                <div class="col-sm-offset-1 col-sm-6 col-lg-7 panel panel-info">
+                    <div class="panel-body">This user has received no bans.</div>
+                </div>
             </div>
         @else
-        <div class="col-xs-12 thin-sides-padding"><h5>Ban History</h5>
-            <table class="table table-condensed">
-                <tr>
-                    <th>Issued By</th>
-                    <th>Start</th>
-                    <th>Finish</th>
-                    <th>Validity</th>
-                    <th>Comment</th>
-                </tr>
-            @foreach ($user->receivedBans()->get()->reverse() as $ban)
-                <tr>
-                    <td class="hidden">{{ $ban->id }}</td>
-                    <td>{{{ $ban->issuer->display_name }}}</td>
-                    <td>{{ $ban->start }}</td>
-                    <td>{{ isset($ban->end) ? $ban->end : 'Permanent' }}</td>
-                    <td>{{ $ban->valid ? 'Valid' : 'Invalid' }}</td>
-                    <td>{{{ $ban->comment }}}</td>
-                </tr>
-            @endforeach
-            </table>
-        </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5>Ban History</h5>
+                    <table class="table table-condensed">
+                        <tr>
+                            <th>Issued By</th>
+                            <th>Start</th>
+                            <th>Finish</th>
+                            <th>Validity</th>
+                            <th>Comment</th>
+                        </tr>
+                    @foreach ($user->receivedBans()->get()->reverse() as $ban)
+                        <tr>
+                            <td class="hidden">{{ $ban->id }}</td>
+                            <td>{{{ $ban->issuer->display_name }}}</td>
+                            <td>{{ $ban->start }}</td>
+                            <td>{{ isset($ban->end) ? $ban->end : 'Permanent' }}</td>
+                            <td>{{ $ban->valid ? 'Valid' : 'Invalid' }}</td>
+                            <td>{{{ $ban->comment }}}</td>
+                        </tr>
+                    @endforeach
+                    </table>
+                </div>
+            </div>
         @endif
     </div>
+</div>
 @stop
 
 @section('js')

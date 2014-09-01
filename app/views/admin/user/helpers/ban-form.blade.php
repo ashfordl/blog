@@ -1,6 +1,6 @@
 <div class="col-sm-5 col-lg-4">
-    <h5 class="no-column-gap">Ban this user</h5>
-    {{ Form::open(array('action' => array('UserAdminController@postBan'), 'class' => 'form-horizontal')) }}
+    <h5>Ban this user</h5>
+    {{ Form::open(array('action' => array('UserAdminController@postBan'))) }}
         @if(isset($errors))
             <div class="panel panel-danger input-block-level no-column-gap">
                 <div class="panel-body">
@@ -27,5 +27,5 @@
         <div class="form-group">
         {{ Form::submit('Ban', array('class' => 'btn btn-danger btn-block')) }}
         </div>
-    {{ Form::close() }} 
+    {{ Form::close() }}
 </div>

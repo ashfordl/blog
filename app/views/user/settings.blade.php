@@ -5,6 +5,7 @@
 @stop
 
 @section('body')
+<div class="row">
     <div class="col-sm-5 col-lg-4">
         <h1>Settings</h1>
         {{ Form::open(array('action' => 'UserController@postSettings')) }}
@@ -61,4 +62,5 @@
             {{ Form::submit('Submit', array('class' => 'btn btn-primary btn-block')) }}
         {{ Form::close() }}
     </div>
+</div>
 @stop

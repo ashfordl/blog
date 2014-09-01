@@ -5,6 +5,7 @@
 @stop
 
 @section('body')
+<div class="row">
     <div class="col-md-8 col-lg-6">
         <h1>Categories</h1>
 
@@ -54,6 +55,7 @@
             {{ Form::submit('Submit', array('class' => 'btn btn-primary btn-block')) }}
         {{ Form::close() }}
     </div>
+</div>
 @stop
 
 @section('js')

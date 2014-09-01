@@ -9,7 +9,8 @@
 @stop
 
 @section('body')
-    <div class="col-sm-8 col-md-7 col-lg-6">
+<div class="row">
+    <div class="col-md-8 col-lg-6">
         @if (isset($post))
             <h1>Edit Post</h1>
         @else
@@ -62,4 +63,5 @@
 
         {{ Form::close() }}
     </div>
+</div>
 @stop

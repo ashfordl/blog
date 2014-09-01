@@ -5,6 +5,7 @@
 @stop
 
 @section('body')
+<div class="row">
     <div class="col-md-8 col-lg-7">
         <h1>User Admin</h1>
 
@@ -30,4 +31,5 @@
         @endforeach
         </table>
     </div>
+</div>
 @stop
