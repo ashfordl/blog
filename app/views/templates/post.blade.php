@@ -45,11 +45,15 @@
         @if(count($post->comments) != 0)
             <h4>Comments ({{ count($post->comments) }})</h4>
 
+            @include('blog.comment-form')
+
             <ul class="list-unstyled">
                 @each('templates.comment', $post->comments()->whereNull('parent_id')->orderBy('created_at', 'desc')->get(), 'comment')
             </ul>
         @else
             <h4>There are no comments.</h4>
+
+            @include('blog.comment-form')
         @endif
         </div>
     </div>

@@ -52,4 +52,52 @@ class Comment extends Eloquent
     {
         return $this->hasMany('Comment', 'parent_id');
     }
+
+
+
+
+
+/**            **/
+/** VALIDATION **/
+/**            **/
+
+    /**
+     * The validation rules for a comment.
+     *
+     * @var array
+     */
+    protected static $newRules = array(
+            'text' => 'required|max:1000'
+        );
+
+    public static $newValidator;
+
+    /**
+     * Attempts to modify or create a comment.
+     *
+     * @return bool
+     */
+    public static function attemptNew($data, $id)
+    {
+        // Validate input
+        $validator = Validator::make($data, Comment::$newRules);
+        Comment::$newValidator = $validator;
+
+        if ($validator->fails())
+        {
+            // Invalid input
+            return false;
+        }
+
+        $comment = new Comment();
+        $comment->blogpost_id = $id;
+        $comment->user_id = Auth::user()->id;
+
+        $comment->text = $data['text'];
+
+        $comment->save();
+
+        // Set validator
+        return true;
+    }
 }

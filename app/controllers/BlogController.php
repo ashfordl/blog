@@ -2,6 +2,12 @@
 
 class BlogController extends BaseController {
 
+    public function __construct()
+    {
+        $this->beforeFilter('auth', array('on' => 'post'));
+        $this->beforeFilter('csrf', array('on' => 'post'));
+    }
+
 	public function getIndex()
 	{
         // Display most recent post
@@ -38,6 +44,7 @@ class BlogController extends BaseController {
         $titleURL = $post->getTitleURLString();
         if ($title != $titleURL)
         {
+            Session::reflash();
             return Redirect::action('BlogController@getPost', array($id, $titleURL));
         }
 
@@ -113,5 +120,19 @@ class BlogController extends BaseController {
         return View::make('blog.category')
                 ->with('category', $category)
                 ->with('posts', $category->blogposts()->visible()->get()->reverse());
+    }
+
+    public function postComment($id)
+    {
+        if (Comment::attemptNew(Input::all(), $id))
+        {
+            return Redirect::action('BlogController@getPost', array($id));
+        }
+        else
+        {
+            return Redirect::action('BlogController@getPost', array($id))
+                ->withErrors(Comment::$newValidator)
+                ->withInput();
+        }
     }
 }
